@@ -1,18 +1,24 @@
+import { useState } from 'react'
+
 const Navbar = () => {
-  const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact']
+  const [active, setActive] = useState('Home')
+  const items = ['Home', 'About', 'Skills', 'Projects', 'Contact']
+
   return (
-    <nav className="fixed top-0 w-full bg-[#0a0a0f]/90 backdrop-blur-sm z-50 px-8 py-4 flex justify-between items-center border-b border-white/10">
-      <span className="text-white font-bold text-xl">Portfolio</span>
-      <ul className="flex gap-8">
-        {navItems.map(item => (
-          <li key={item}>
-            <a href={`#${item.toLowerCase()}`} className="text-gray-300 hover:text-purple-400 transition-colors">
-              {item}
-            </a>
-          </li>
+    <nav style={{position:'fixed',top:0,width:'100%',zIndex:50,padding:'16px 48px',display:'flex',justifyContent:'space-between',alignItems:'center',backgroundColor:'rgba(10,10,15,0.9)',backdropFilter:'blur(10px)'}}>
+      <span style={{color:'white',fontWeight:900,fontSize:'22px'}}>
+        Port<span style={{color:'#22d3ee'}}>folio</span>
+      </span>
+      <div style={{display:'flex',gap:'32px'}}>
+        {items.map(item => (
+          <a key={item} href={'#'+item.toLowerCase()} onClick={()=>setActive(item)}
+            style={{color:active===item?'#22d3ee':'#d1d5db',textDecoration:'none',fontWeight:600,fontSize:'14px',borderBottom:active===item?'2px solid #22d3ee':'2px solid transparent',paddingBottom:'4px'}}>
+            {item}
+          </a>
         ))}
-      </ul>
+      </div>
     </nav>
   )
 }
+
 export default Navbar
