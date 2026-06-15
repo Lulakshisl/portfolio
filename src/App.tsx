@@ -6,6 +6,7 @@ import Skills from './sections/Skills'
 import Projects from './sections/Projects'
 import Contact from './sections/Contact'
 import Footer from './components/Footer'
+import FloatingWhatsApp from './components/FloatingWhatsApp'
 
 export const ThemeContext = createContext({ dark: true, toggle: () => {} })
 
@@ -24,6 +25,7 @@ function App() {
         <div id="projects"><Projects /></div>
         <div id="contact"><Contact /></div>
         <Footer />
+        <FloatingWhatsApp />
       </div>
     </ThemeContext.Provider>
   )

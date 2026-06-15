@@ -44,8 +44,9 @@ const Contact = () => {
   const cardBorder = dark ? 'rgba(139,92,246,0.15)' : 'rgba(124,58,237,0.15)'
   const valueText = dark ? '#e2e8f0' : '#1e1b4b'
   const iconBoxBg = dark ? 'rgba(139,92,246,0.12)' : 'rgba(124,58,237,0.08)'
-  const formBg = dark ? 'rgba(14,14,28,0.6)' : 'rgba(255,255,255,0.6)'
-  const inputBg = dark ? 'rgba(14,14,28,0.8)' : 'rgba(255,255,255,0.9)'
+  const formBg = dark ? 'rgba(20,20,38,0.9)' : 'rgba(255,255,255,0.95)'
+  const formBorder = dark ? 'rgba(139,92,246,0.25)' : 'rgba(124,58,237,0.25)'
+  const inputBg = dark ? 'rgba(8,8,20,0.8)' : 'rgba(245,243,255,0.9)'
   const inputBorder = dark ? 'rgba(139,92,246,0.2)' : 'rgba(124,58,237,0.18)'
   const inputText = dark ? 'white' : '#1e1b4b'
   const labelText = dark ? '#94a3b8' : '#6b5b95'
@@ -66,50 +67,70 @@ const Contact = () => {
 
         <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'48px',alignItems:'start'}}>
 
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px'}}>
-            {contacts.map(c=>(
-              <a key={c.label} href={c.href} target={c.href.startsWith('http')?'_blank':undefined} rel="noreferrer"
-                style={{background:c.highlight?'linear-gradient(135deg,#8b5cf6,#6366f1)':cardBg,border:c.highlight?'none':`1px solid ${cardBorder}`,borderRadius:'14px',padding:'18px',textDecoration:'none',display:'block',boxShadow:c.highlight?'0 8px 30px rgba(139,92,246,0.3)':'none'}}>
-                <div style={{
-                  width:'40px',height:'40px',borderRadius:'10px',marginBottom:'10px',
-                  display:'flex',alignItems:'center',justifyContent:'center',
-                  background: c.highlight ? 'rgba(255,255,255,0.18)' : iconBoxBg,
-                  color: c.highlight ? 'white' : accentText
-                }}>
-                  <Icon type={c.icon}/>
-                </div>
-                <div style={{color:c.highlight?'rgba(255,255,255,0.7)':accentText,fontSize:'10px',fontWeight:'700',letterSpacing:'1px',marginBottom:'4px'}}>{c.label}</div>
-                <div style={{color:c.highlight?'white':valueText,fontSize:'13px',fontWeight:'600'}}>{c.value}</div>
-              </a>
-            ))}
+          {/* Contact cards block */}
+          <div>
+            <h3 style={{color:heading,fontSize:'16px',fontWeight:'700',marginBottom:'16px',opacity:0.7}}>Contact Details</h3>
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px'}}>
+              {contacts.map(c=>(
+                <a key={c.label} href={c.href} target={c.href.startsWith('http')?'_blank':undefined} rel="noreferrer"
+                  className="contact-card"
+                  style={{background:c.highlight?'linear-gradient(135deg,#8b5cf6,#6366f1)':cardBg,border:c.highlight?'none':`1px solid ${cardBorder}`,borderRadius:'14px',padding:'18px',textDecoration:'none',display:'block'}}>
+                  <div style={{
+                    width:'40px',height:'40px',borderRadius:'10px',marginBottom:'10px',
+                    display:'flex',alignItems:'center',justifyContent:'center',
+                    background: c.highlight ? 'rgba(255,255,255,0.18)' : iconBoxBg,
+                    color: c.highlight ? 'white' : accentText
+                  }}>
+                    <Icon type={c.icon}/>
+                  </div>
+                  <div style={{color:c.highlight?'rgba(255,255,255,0.7)':accentText,fontSize:'10px',fontWeight:'700',letterSpacing:'1px',marginBottom:'4px'}}>{c.label}</div>
+                  <div style={{color:c.highlight?'white':valueText,fontSize:'13px',fontWeight:'600'}}>{c.value}</div>
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div style={{background:formBg,border:`1px solid ${cardBorder}`,borderRadius:'20px',padding:'32px'}}>
-            <p style={{color:muted,fontSize:'14px',marginBottom:'24px',lineHeight:'1.6'}}>Drop a message — it'll open in WhatsApp ready to send.</p>
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px',marginBottom:'14px'}}>
-              <div>
-                <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Name</label>
-                <input value={name} onChange={e=>setName(e.target.value)} placeholder="Lushi Wijesinghe" style={inp}/>
+          {/* Message form block - visually separated */}
+          <div>
+            <h3 style={{color:heading,fontSize:'16px',fontWeight:'700',marginBottom:'16px',opacity:0.7}}>Send a Message</h3>
+            <div style={{background:formBg,border:`1px solid ${formBorder}`,borderRadius:'20px',padding:'32px',boxShadow:dark?'0 20px 50px rgba(139,92,246,0.1)':'0 20px 50px rgba(124,58,237,0.08)'}}>
+              <p style={{color:muted,fontSize:'14px',marginBottom:'24px',lineHeight:'1.6'}}>Drop a message — it'll open in WhatsApp ready to send.</p>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px',marginBottom:'14px'}}>
+                <div>
+                  <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Name</label>
+                  <input value={name} onChange={e=>setName(e.target.value)} placeholder="Lushi wijesinghe" style={inp}/>
+                </div>
+                <div>
+                  <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Email</label>
+                  <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="example@gmail.com" style={inp}/>
+                </div>
               </div>
-              <div>
-                <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Email</label>
-                <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="example@gmail.com" style={inp}/>
+              <div style={{marginBottom:'24px'}}>
+                <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Message</label>
+                <textarea value={message} onChange={e=>setMessage(e.target.value)} placeholder="Tell me about your project..." rows={5} style={{...inp,resize:'vertical'}}/>
               </div>
-            </div>
-            <div style={{marginBottom:'24px'}}>
-              <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Message</label>
-              <textarea value={message} onChange={e=>setMessage(e.target.value)} placeholder="Tell me about your project..." rows={5} style={{...inp,resize:'vertical'}}/>
-            </div>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-              <a href="mailto:lulakshimadubashini@gmail.com" style={{color:accentText,fontSize:'13px',fontWeight:'600',textDecoration:'none'}}>Prefer email?</a>
-              <button onClick={sendWhatsApp} style={{background:'linear-gradient(135deg,#8b5cf6,#6366f1)',color:'white',padding:'12px 24px',borderRadius:'10px',fontWeight:'700',fontSize:'14px',border:'none',cursor:'pointer',boxShadow:'0 8px 24px rgba(139,92,246,0.3)'}}>
-                Send via WhatsApp →
-              </button>
+              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                <a href="mailto:lulakshimadubashini@gmail.com" style={{color:accentText,fontSize:'13px',fontWeight:'600',textDecoration:'none'}}>Prefer email?</a>
+                <button onClick={sendWhatsApp} style={{background:'linear-gradient(135deg,#8b5cf6,#6366f1)',color:'white',padding:'12px 24px',borderRadius:'10px',fontWeight:'700',fontSize:'14px',border:'none',cursor:'pointer',boxShadow:'0 8px 24px rgba(139,92,246,0.3)'}}>
+                  Send via WhatsApp →
+                </button>
+              </div>
             </div>
           </div>
 
         </div>
       </div>
+
+      <style>{`
+        .contact-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .contact-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 14px 30px rgba(139,92,246,0.25);
+          border-color: #8b5cf6 !important;
+        }
+      `}</style>
     </div>
   )
 }
