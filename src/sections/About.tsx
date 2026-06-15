@@ -4,7 +4,7 @@ import { ThemeContext } from '../App'
 const About = () => {
   const { dark } = useContext(ThemeContext)
   const stats = [['10+','Projects'],['5+','Technologies'],['2+','Years Learning']]
-  const info = [['Name','Lulakshi Madubashini'],['Country','Sri Lanka 🇱🇰'],['Email','lulakshimadubashini@gmail.com'],['Status','Open to Opportunities ✓']]
+  const info = [['Name','Lulakshi Madubashini'],['Country','Sri Lanka '],['Email','lulakshimadubashini@gmail.com'],['Status','Open to Opportunities ']]
 
   const bg = dark ? 'linear-gradient(180deg,#080810 0%,#0a0a18 100%)' : 'linear-gradient(180deg,#f8f7ff 0%,#ede9fe 100%)'
   const heading = dark ? 'white' : '#1e1b4b'
@@ -74,4 +74,3 @@ const About = () => {
 }
 
 export default About
-g
