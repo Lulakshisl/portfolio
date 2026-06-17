@@ -44,9 +44,9 @@ const Footer = () => {
     <div style={{background:bg,borderTop:`1px solid ${border}`,padding:'28px 6%',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
 
       <div style={{fontWeight:900,fontSize:'18px'}}>
-        <span style={{color:logoText}}>lulakshi</span>
+        <span style={{color:logoText}}>LUSHI</span>
         <span style={{color:'#8b5cf6'}}>.</span>
-        <span style={{color:'#a78bfa'}}>dev</span>
+        <span style={{color:'#a78bfa'}}>DEV</span>
       </div>
 
       <p style={{color:copyText,fontSize:'13px',margin:0}}>

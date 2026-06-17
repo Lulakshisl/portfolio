@@ -28,9 +28,9 @@ const Navbar = () => {
       transition: 'all 0.4s'
     }}>
       <div style={{ fontWeight: 900, fontSize: '22px' }}>
-        <span style={{ color: dark ? 'white' : '#1e1b4b' }}>lulakshi</span>
+        <span style={{ color: dark ? 'white' : '#1e1b4b' }}>LUSHI</span>
         <span style={{ color: '#8b5cf6' }}>.</span>
-        <span style={{ color: '#a78bfa' }}>dev</span>
+        <span style={{ color: '#a78bfa' }}>DEV</span>
       </div>
 
       <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>

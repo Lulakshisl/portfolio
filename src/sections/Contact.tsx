@@ -2,133 +2,310 @@ import { useState, useContext } from 'react'
 import { ThemeContext } from '../App'
 
 const Icon = ({ type }: { type: string }) => {
-  const props = { width:22, height:22, viewBox:"0 0 24 24", fill:"none", stroke:"currentColor", strokeWidth:2, strokeLinecap:"round" as const, strokeLinejoin:"round" as const }
+  const props = { width:24, height:24, viewBox:"0 0 24 24", fill:"none", stroke:"currentColor", strokeWidth:2, strokeLinecap:"round" as const, strokeLinejoin:"round" as const }
   switch(type) {
-    case 'mail': return <svg {...props}><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-    case 'phone': return <svg {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    case 'whatsapp': return <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.149.347-.347.521-.521.174-.174.247-.297.371-.495.124-.198.062-.371-.025-.52-.087-.149-.748-1.81-.999-2.443-.196-.504-.401-.466-.557-.467-.166-.001-.345-.002-.529-.002-.184 0-.5.067-.747.347-.247.279-.943.92-1.025 2.198-.082 1.278.62 2.564.747 2.747.124.176.166.227.297.396.124.155 1.292 1.94 2.93 2.71 1.62.762 1.92.62 2.32.578.397-.04 1.29-.527 1.473-1.038.184-.51.184-.948.13-1.038-.05-.087-.247-.149-.521-.297M12.05 2C6.5 2 2 6.477 2 11.99c0 2.122.667 4.099 1.84 5.71L2.65 21.5l3.91-1.275A9.973 9.973 0 0 0 12.05 22c5.55 0 10.05-4.477 10.05-9.99C22.1 6.477 17.6 2 12.05 2z"/></svg>
-    case 'linkedin': return <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-    case 'github': return <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-    case 'resume': return <svg {...props}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+    case 'mail':     return <svg {...props}><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+    case 'phone':    return <svg {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    case 'whatsapp': return (
+      <svg viewBox="0 0 32 32" width="24" height="24" fill="currentColor">
+        <path d="M16.003 2C8.28 2 2 8.28 2 16.003c0 2.47.67 4.785 1.84 6.77L2 30l7.43-1.802A13.94 13.94 0 0 0 16.003 30C23.72 30 30 23.72 30 16.003 30 8.28 23.72 2 16.003 2zm0 25.4a11.33 11.33 0 0 1-5.78-1.583l-.414-.246-4.41 1.07 1.1-4.296-.27-.44A11.37 11.37 0 0 1 4.6 16.003c0-6.29 5.114-11.403 11.403-11.403S27.4 9.713 27.4 16.003 22.29 27.4 16.003 27.4zm6.27-8.536c-.344-.172-2.034-1.003-2.348-1.118-.314-.115-.543-.172-.772.172-.229.344-.886 1.118-1.086 1.347-.2.23-.4.258-.743.086-.344-.172-1.452-.535-2.766-1.707-1.022-.912-1.712-2.038-1.912-2.382-.2-.344-.021-.53.15-.702.155-.154.344-.4.516-.601.172-.2.23-.344.344-.573.115-.229.058-.43-.029-.601-.086-.172-.772-1.862-1.057-2.549-.279-.668-.562-.578-.772-.589l-.657-.011c-.229 0-.6.086-.914.43-.314.343-1.2 1.174-1.2 2.863 0 1.69 1.229 3.322 1.4 3.551.172.229 2.42 3.694 5.863 5.18.82.354 1.46.565 1.958.723.823.261 1.572.224 2.164.136.66-.099 2.034-.832 2.32-1.635.287-.803.287-1.49.2-1.635-.084-.144-.313-.23-.657-.4z"/>
+      </svg>
+    )
+    case 'linkedin': return <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.56V9h3.554v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    case 'github':   return <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
     default: return null
   }
 }
 
+const ContactRow = ({ c, dark, cardBg, cardBorder, muted }: {
+  c: { icon: string, label: string, value: string, href: string }
+  dark: boolean, cardBg: string, cardBorder: string, muted: string
+}) => {
+  const handleClick = () => {
+    window.open(c.href, c.href.startsWith('http') ? '_blank' : '_self')
+  }
+  return (
+    <div
+      onClick={handleClick}
+      className="contact-row"
+      style={{
+        display: 'flex', alignItems: 'center', gap: '20px',
+        background: cardBg, border: `1px solid ${cardBorder}`,
+        borderRadius: '16px', padding: '18px 24px',
+        cursor: 'pointer', transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
+      }}
+    >
+      <div
+        className="contact-icon-box"
+        style={{
+          width: '52px', height: '52px', borderRadius: '13px', flexShrink: 0,
+          background: dark ? 'rgba(139,92,246,0.12)' : 'rgba(124,58,237,0.08)',
+          border: `1px solid ${dark ? 'rgba(139,92,246,0.2)' : 'rgba(124,58,237,0.2)'}`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: dark ? 'rgba(167,139,250,0.5)' : 'rgba(124,58,237,0.4)',
+          transition: 'all 0.25s ease',
+        }}
+      >
+        <Icon type={c.icon}/>
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ color: muted, fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase' as const, marginBottom: '4px' }}>
+          {c.label}
+        </div>
+        <div className="contact-value" style={{ color: dark ? '#e2e8f0' : '#1e1b4b', fontSize: '14px', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const, transition: 'color 0.25s' }}>
+          {c.value}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const ErrMsg = ({ msg }: { msg: string }) => (
+  <div style={{ color:'#f87171', fontSize:'11px', fontWeight:'600', marginTop:'6px', display:'flex', alignItems:'center', gap:'5px' }}>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f87171" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    {msg}
+  </div>
+)
+
 const Contact = () => {
   const { dark } = useContext(ThemeContext)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
+  const [name,     setName]     = useState('')
+  const [email,    setEmail]    = useState('')
+  const [message,  setMessage]  = useState('')
+  const [sent,     setSent]     = useState(false)
+  const [nameErr,  setNameErr]  = useState('')
+  const [emailErr, setEmailErr] = useState('')
 
   const sendWhatsApp = () => {
+    let valid = true
+
+    if (!name.trim()) {
+      setNameErr('Name is required')
+      valid = false
+    } else if (name.trim().length < 2) {
+      setNameErr('Name must be at least 2 characters')
+      valid = false
+    } else {
+      setNameErr('')
+    }
+
+    if (!email.trim()) {
+      setEmailErr('Email is required')
+      valid = false
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setEmailErr('Please enter a valid email address')
+      valid = false
+    } else {
+      setEmailErr('')
+    }
+
+    if (!message.trim() || !valid) return
+
     const text = `Hi Lulakshi! I'm ${name} (${email}). ${message}`
     window.open(`https://wa.me/94750184902?text=${encodeURIComponent(text)}`, '_blank')
+    setSent(true)
+    setTimeout(() => setSent(false), 3000)
   }
 
   const contacts = [
-    {icon:'mail',label:'EMAIL',value:'lulakshimadubashini@gmail.com',href:'mailto:lulakshimadubashini@gmail.com',highlight:false},
-    {icon:'phone',label:'CALL ME',value:'+94 75 018 4902',href:'tel:+94750184902',highlight:false},
-    {icon:'whatsapp',label:'WHATSAPP',value:'+94 75 018 4902',href:'https://wa.me/94750184902',highlight:true},
-    {icon:'linkedin',label:'LINKEDIN',value:'in/lulakshi-madubashini',href:'https://linkedin.com',highlight:false},
-    {icon:'github',label:'GITHUB',value:'@Lulakshisl',href:'https://github.com/Lulakshisl',highlight:false},
-    {icon:'resume',label:'RESUME',value:'Download CV (PDF)',href:'/cv.pdf',highlight:false},
+    { icon:'whatsapp', label:'WhatsApp', value:'+94 75 018 4902',              href:'https://wa.me/94750184902' },
+    { icon:'mail',     label:'Email',    value:'lulakshimadubashini@gmail.com', href:'mailto:lulakshimadubashini@gmail.com' },
+    { icon:'phone',    label:'Phone',    value:'+94 75 018 4902',               href:'tel:+94750184902' },
+    { icon:'linkedin', label:'LinkedIn', value:'lulakshi-madubashini',          href:'https://linkedin.com' },
+    { icon:'github',   label:'GitHub',   value:'@Lulakshisl',                   href:'https://github.com/Lulakshisl' },
   ]
 
-  const bg = dark ? 'linear-gradient(180deg,#0a0a18 0%,#080810 100%)' : 'linear-gradient(180deg,#ede9fe 0%,#f8f7ff 100%)'
-  const heading = dark ? 'white' : '#1e1b4b'
-  const muted = dark ? '#64748b' : '#7c6fa5'
-  const accentText = dark ? '#a78bfa' : '#7c3aed'
-  const badgeBg = dark ? 'rgba(139,92,246,0.1)' : 'rgba(124,58,237,0.08)'
-  const badgeBorder = dark ? 'rgba(139,92,246,0.3)' : 'rgba(124,58,237,0.25)'
-  const cardBg = dark ? 'rgba(14,14,28,0.8)' : 'rgba(255,255,255,0.8)'
-  const cardBorder = dark ? 'rgba(139,92,246,0.15)' : 'rgba(124,58,237,0.15)'
-  const valueText = dark ? '#e2e8f0' : '#1e1b4b'
-  const iconBoxBg = dark ? 'rgba(139,92,246,0.12)' : 'rgba(124,58,237,0.08)'
-  const formBg = dark ? 'rgba(20,20,38,0.9)' : 'rgba(255,255,255,0.95)'
-  const formBorder = dark ? 'rgba(139,92,246,0.25)' : 'rgba(124,58,237,0.25)'
-  const inputBg = dark ? 'rgba(8,8,20,0.8)' : 'rgba(245,243,255,0.9)'
-  const inputBorder = dark ? 'rgba(139,92,246,0.2)' : 'rgba(124,58,237,0.18)'
-  const inputText = dark ? 'white' : '#1e1b4b'
-  const labelText = dark ? '#94a3b8' : '#6b5b95'
+  const bg          = dark ? 'linear-gradient(180deg,#0a0a18 0%,#080810 100%)' : 'linear-gradient(180deg,#ede9fe 0%,#f8f7ff 100%)'
+  const muted       = dark ? '#475569'                 : '#7c6fa5'
+  const accentText  = dark ? '#a78bfa'                 : '#7c3aed'
+  const badgeBg     = dark ? 'rgba(139,92,246,0.1)'    : 'rgba(124,58,237,0.08)'
+  const badgeBorder = dark ? 'rgba(139,92,246,0.3)'    : 'rgba(124,58,237,0.25)'
+  const cardBg      = dark ? 'rgba(14,14,28,0.85)'     : 'rgba(255,255,255,0.9)'
+  const cardBorder  = dark ? 'rgba(139,92,246,0.12)'   : 'rgba(124,58,237,0.12)'
+  const formBg      = dark ? 'rgba(14,14,28,0.9)'      : 'rgba(255,255,255,0.98)'
+  const formBorder  = dark ? 'rgba(139,92,246,0.18)'   : 'rgba(124,58,237,0.18)'
+  const inputText   = dark ? '#ffffff'                 : '#1e1b4b'
+  const labelText   = dark ? '#475569'                 : '#7c6fa5'
+  const underline   = dark ? 'rgba(139,92,246,0.25)'   : 'rgba(124,58,237,0.2)'
+  const orb1        = dark ? 'rgba(139,92,246,0.06)'   : 'rgba(124,58,237,0.05)'
+  const orb2        = dark ? 'rgba(99,102,241,0.05)'   : 'rgba(99,102,241,0.04)'
 
-  const inp = {width:'100%',background:inputBg,border:`1px solid ${inputBorder}`,borderRadius:'10px',padding:'14px 16px',color:inputText,fontSize:'14px',outline:'none',boxSizing:'border-box' as const,fontFamily:'inherit'}
+  const inp = (hasErr: boolean): React.CSSProperties => ({
+    width: '100%', background: 'transparent',
+    border: 'none',
+    borderBottom: `1px solid ${hasErr ? '#f87171' : underline}`,
+    borderRadius: '0', padding: '10px 0',
+    color: inputText, fontSize: '15px', outline: 'none',
+    boxSizing: 'border-box', fontFamily: 'inherit',
+    transition: 'border-color 0.2s',
+  })
+
+  const isDisabled = !name.trim() || !email.trim() || !message.trim()
 
   return (
-    <div style={{minHeight:'100vh',padding:'100px 6%',background:bg}}>
-      <div style={{maxWidth:'1100px',margin:'0 auto'}}>
+    <div style={{ minHeight:'100vh', padding:'100px 6%', background:bg, position:'relative', overflow:'hidden' }}>
 
-        <div style={{marginBottom:'60px'}}>
-          <div style={{display:'inline-block',background:badgeBg,border:`1px solid ${badgeBorder}`,borderRadius:'50px',padding:'5px 16px',marginBottom:'16px'}}>
-            <span style={{color:accentText,fontSize:'12px',fontWeight:'700',letterSpacing:'2px',textTransform:'uppercase'}}>Contact</span>
+      <div style={{ position:'absolute', top:'8%',     right:'4%', width:'380px', height:'380px', borderRadius:'50%', background:orb1, filter:'blur(80px)', pointerEvents:'none' }}/>
+      <div style={{ position:'absolute', bottom:'10%', left:'2%',  width:'280px', height:'280px', borderRadius:'50%', background:orb2, filter:'blur(60px)', pointerEvents:'none' }}/>
+
+      <div style={{ maxWidth:'1100px', margin:'0 auto', position:'relative' }}>
+
+        {/* Header */}
+        <div style={{ marginBottom:'64px' }}>
+          <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', background:badgeBg, border:`1px solid ${badgeBorder}`, borderRadius:'50px', padding:'6px 16px', marginBottom:'20px' }}>
+            <span style={{ width:'7px', height:'7px', borderRadius:'50%', background:'#8b5cf6', display:'inline-block', animation:'pulse-dot 2s ease-in-out infinite' }}/>
+            <span style={{ color:accentText, fontSize:'11px', fontWeight:'700', letterSpacing:'2.5px', textTransform:'uppercase' }}>Get In Touch</span>
           </div>
-          <h2 style={{color:heading,fontSize:'42px',fontWeight:'900',letterSpacing:'-1px',marginBottom:'12px'}}>Let's build something</h2>
-          <p style={{color:muted,fontSize:'16px',maxWidth:'500px',lineHeight:'1.7'}}>I'm currently open to internship opportunities and freelance work. Reach out through any channel — I'll get back to you quickly.</p>
+          <h2 style={{ fontSize:'clamp(34px,5vw,52px)', fontWeight:'900', letterSpacing:'-2px', lineHeight:1.05, margin:'0 0 20px 0' }}>
+            <span style={{ color: dark ? '#ffffff' : '#1e1b4b' }}>{"Let's build "}</span>
+            <span style={{ background:'linear-gradient(135deg,#8b5cf6,#a78bfa,#6366f1)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
+              something great.
+            </span>
+          </h2>
+          <p style={{ color:muted, fontSize:'16px', maxWidth:'480px', lineHeight:1.75, margin:0 }}>
+            Open to internships, freelance work, and collaborations. I respond within 24 hours — let's turn your idea into reality.
+          </p>
         </div>
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'48px',alignItems:'start'}}>
+        {/* Two columns */}
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1.1fr', gap:'40px', alignItems:'start' }}>
 
-          {/* Contact cards block */}
+          {/* LEFT */}
           <div>
-            <h3 style={{color:heading,fontSize:'16px',fontWeight:'700',marginBottom:'16px',opacity:0.7}}>Contact Details</h3>
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px'}}>
-              {contacts.map(c=>(
-                <a key={c.label} href={c.href} target={c.href.startsWith('http')?'_blank':undefined} rel="noreferrer"
-                  className="contact-card"
-                  style={{background:c.highlight?'linear-gradient(135deg,#8b5cf6,#6366f1)':cardBg,border:c.highlight?'none':`1px solid ${cardBorder}`,borderRadius:'14px',padding:'18px',textDecoration:'none',display:'block'}}>
-                  <div style={{
-                    width:'40px',height:'40px',borderRadius:'10px',marginBottom:'10px',
-                    display:'flex',alignItems:'center',justifyContent:'center',
-                    background: c.highlight ? 'rgba(255,255,255,0.18)' : iconBoxBg,
-                    color: c.highlight ? 'white' : accentText
-                  }}>
-                    <Icon type={c.icon}/>
-                  </div>
-                  <div style={{color:c.highlight?'rgba(255,255,255,0.7)':accentText,fontSize:'10px',fontWeight:'700',letterSpacing:'1px',marginBottom:'4px'}}>{c.label}</div>
-                  <div style={{color:c.highlight?'white':valueText,fontSize:'13px',fontWeight:'600'}}>{c.value}</div>
-                </a>
+            <p style={{ color:muted, fontSize:'12px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase', marginBottom:'20px' }}>
+              Reach me via
+            </p>
+            <div style={{ display:'flex', flexDirection:'column', gap:'10px' }}>
+              {contacts.map(c => (
+                <ContactRow key={c.label} c={c} dark={dark} cardBg={cardBg} cardBorder={cardBorder} muted={muted}/>
               ))}
             </div>
           </div>
 
-          {/* Message form block - visually separated */}
-          <div>
-            <h3 style={{color:heading,fontSize:'16px',fontWeight:'700',marginBottom:'16px',opacity:0.7}}>Send a Message</h3>
-            <div style={{background:formBg,border:`1px solid ${formBorder}`,borderRadius:'20px',padding:'32px',boxShadow:dark?'0 20px 50px rgba(139,92,246,0.1)':'0 20px 50px rgba(124,58,237,0.08)'}}>
-              <p style={{color:muted,fontSize:'14px',marginBottom:'24px',lineHeight:'1.6'}}>Drop a message — it'll open in WhatsApp ready to send.</p>
-              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px',marginBottom:'14px'}}>
-                <div>
-                  <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Name</label>
-                  <input value={name} onChange={e=>setName(e.target.value)} placeholder="Lushi wijesinghe" style={inp}/>
-                </div>
-                <div>
-                  <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Email</label>
-                  <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="example@gmail.com" style={inp}/>
-                </div>
-              </div>
-              <div style={{marginBottom:'24px'}}>
-                <label style={{color:labelText,fontSize:'11px',fontWeight:'700',letterSpacing:'1px',textTransform:'uppercase',display:'block',marginBottom:'6px'}}>Your Message</label>
-                <textarea value={message} onChange={e=>setMessage(e.target.value)} placeholder="Tell me about your project..." rows={5} style={{...inp,resize:'vertical'}}/>
-              </div>
-              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <a href="mailto:lulakshimadubashini@gmail.com" style={{color:accentText,fontSize:'13px',fontWeight:'600',textDecoration:'none'}}>Prefer email?</a>
-                <button onClick={sendWhatsApp} style={{background:'linear-gradient(135deg,#8b5cf6,#6366f1)',color:'white',padding:'12px 24px',borderRadius:'10px',fontWeight:'700',fontSize:'14px',border:'none',cursor:'pointer',boxShadow:'0 8px 24px rgba(139,92,246,0.3)'}}>
-                  Send via WhatsApp →
-                </button>
-              </div>
-            </div>
-          </div>
+          {/* RIGHT — form */}
+          <div style={{
+            background: formBg, border: `1px solid ${formBorder}`,
+            borderRadius: '24px', padding: '40px',
+            backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+            boxShadow: dark ? '0 24px 60px rgba(139,92,246,0.1)' : '0 24px 60px rgba(124,58,237,0.08)',
+            position: 'relative', overflow: 'hidden',
+          }}>
+            <div style={{ position:'absolute', top:'-40px', right:'-40px', width:'160px', height:'160px', borderRadius:'50%', background: dark ? 'rgba(139,92,246,0.08)' : 'rgba(124,58,237,0.06)', filter:'blur(40px)', pointerEvents:'none' }}/>
 
+            {/* NAME */}
+            <div style={{ marginBottom: nameErr ? '20px' : '32px' }}>
+              <label style={{ color:labelText, fontSize:'11px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase' as const, display:'block', marginBottom:'10px' }}>Name</label>
+              <input
+                value={name}
+                onChange={e => { setName(e.target.value); if (nameErr) setNameErr('') }}
+                style={inp(!!nameErr)}
+                className="contact-input"
+              />
+              {nameErr && <ErrMsg msg={nameErr}/>}
+            </div>
+
+            {/* EMAIL */}
+            <div style={{ marginBottom: emailErr ? '20px' : '32px' }}>
+              <label style={{ color:labelText, fontSize:'11px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase' as const, display:'block', marginBottom:'10px' }}>Email</label>
+              <input
+                value={email}
+                onChange={e => { setEmail(e.target.value); if (emailErr) setEmailErr('') }}
+                style={inp(!!emailErr)}
+                className="contact-input"
+              />
+              {emailErr && <ErrMsg msg={emailErr}/>}
+            </div>
+
+            {/* MESSAGE */}
+            <div style={{ marginBottom:'40px' }}>
+              <label style={{ color:labelText, fontSize:'11px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase' as const, display:'block', marginBottom:'10px' }}>Message</label>
+              <textarea
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                rows={4}
+                style={{ ...inp(false), resize:'none' }}
+                className="contact-input"
+              />
+            </div>
+
+            {/* BUTTON — bright vivid purple matching image 2 */}
+            <button
+              onClick={sendWhatsApp}
+              disabled={isDisabled}
+              className="send-btn"
+              style={{
+                width: '100%',
+                background: sent
+                  ? 'linear-gradient(135deg,#10b981,#059669)'
+                  : '#7c3aed',
+                color: '#ffffff',
+                padding: '15px',
+                borderRadius: '50px',
+                fontWeight: '800',
+                fontSize: '15px',
+                border: 'none',
+                cursor: isDisabled ? 'not-allowed' : 'pointer',
+                boxShadow: sent
+                  ? '0 8px 24px rgba(16,185,129,0.4)'
+                  : '0 8px 32px rgba(124,58,237,0.55)',
+                transition: 'all 0.3s ease',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+                opacity: isDisabled ? 0.5 : 1,
+                letterSpacing: '0.3px',
+              }}
+            >
+              {sent ? (
+                <>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span style={{ color:'#ffffff', fontWeight:'800' }}>Sent!</span>
+                </>
+              ) : (
+                <>
+                  <svg viewBox="0 0 32 32" width="18" height="18" fill="#ffffff">
+                    <path d="M16.003 2C8.28 2 2 8.28 2 16.003c0 2.47.67 4.785 1.84 6.77L2 30l7.43-1.802A13.94 13.94 0 0 0 16.003 30C23.72 30 30 23.72 30 16.003 30 8.28 23.72 2 16.003 2zm0 25.4a11.33 11.33 0 0 1-5.78-1.583l-.414-.246-4.41 1.07 1.1-4.296-.27-.44A11.37 11.37 0 0 1 4.6 16.003c0-6.29 5.114-11.403 11.403-11.403S27.4 9.713 27.4 16.003 22.29 27.4 16.003 27.4zm6.27-8.536c-.344-.172-2.034-1.003-2.348-1.118-.314-.115-.543-.172-.772.172-.229.344-.886 1.118-1.086 1.347-.2.23-.4.258-.743.086-.344-.172-1.452-.535-2.766-1.707-1.022-.912-1.712-2.038-1.912-2.382-.2-.344-.021-.53.15-.702.155-.154.344-.4.516-.601.172-.2.23-.344.344-.573.115-.229.058-.43-.029-.601-.086-.172-.772-1.862-1.057-2.549-.279-.668-.562-.578-.772-.589l-.657-.011c-.229 0-.6.086-.914.43-.314.343-1.2 1.174-1.2 2.863 0 1.69 1.229 3.322 1.4 3.551.172.229 2.42 3.694 5.863 5.18.82.354 1.46.565 1.958.723.823.261 1.572.224 2.164.136.66-.099 2.034-.832 2.32-1.635.287-.803.287-1.49.2-1.635-.084-.144-.313-.23-.657-.4z"/>
+                  </svg>
+                  <span style={{ color:'#ffffff', fontWeight:'800' }}>Send via WhatsApp</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
       <style>{`
-        .contact-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        @keyframes pulse-dot {
+          0%, 100% { opacity:1;  transform:scale(1);   }
+          50%       { opacity:.4; transform:scale(1.5); }
         }
-        .contact-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 14px 30px rgba(139,92,246,0.25);
-          border-color: #8b5cf6 !important;
+        .contact-row:hover {
+          border-color: rgba(139,92,246,0.4) !important;
+          box-shadow: 0 4px 20px rgba(139,92,246,0.12);
+        }
+        .contact-row:hover .contact-icon-box {
+          background: linear-gradient(135deg,#8b5cf6,#6366f1) !important;
+          border-color: transparent !important;
+          color: white !important;
+          box-shadow: 0 6px 20px rgba(139,92,246,0.45);
+          transform: scale(1.05);
+        }
+        .contact-row:hover .contact-value {
+          color: #a78bfa !important;
+        }
+        .contact-input:focus {
+          border-bottom-color: #8b5cf6 !important;
+          box-shadow: none;
+        }
+        .send-btn:hover:not(:disabled) {
+          background: #6d28d9 !important;
+          transform: translateY(-2px);
+          box-shadow: 0 16px 40px rgba(124,58,237,0.65) !important;
+        }
+        .send-btn:active:not(:disabled) {
+          transform: translateY(0);
         }
       `}</style>
     </div>
