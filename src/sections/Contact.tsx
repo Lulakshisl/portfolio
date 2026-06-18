@@ -17,57 +17,65 @@ const Icon = ({ type }: { type: string }) => {
   }
 }
 
-const ContactRow = ({ c, dark, cardBg, cardBorder, muted }: {
+const ContactRow = ({ c, dark, cardBg, cardBorder, muted, isFirst, isLast }: {
   c: { icon: string, label: string, value: string, href: string }
   dark: boolean, cardBg: string, cardBorder: string, muted: string
+  isFirst: boolean, isLast: boolean
 }) => {
+  const lineColor = dark ? 'rgba(139,92,246,0.35)' : 'rgba(124,58,237,0.25)'
   const handleClick = () => {
     window.open(c.href, c.href.startsWith('http') ? '_blank' : '_self')
   }
   return (
-    <div
-      onClick={handleClick}
-      className="contact-row"
-      style={{
-        display: 'flex', alignItems: 'center', gap: '20px',
-        background: cardBg, border: `1px solid ${cardBorder}`,
-        borderRadius: '16px', padding: '18px 24px',
-        cursor: 'pointer', transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
-      }}
-    >
-      <div
-        className="contact-icon-box"
-        style={{
-          width: '52px', height: '52px', borderRadius: '13px', flexShrink: 0,
+    <div style={{ position:'relative' }}>
+
+      {/* TOP horizontal line — only on first (WhatsApp) card */}
+      {isFirst && (
+        <div style={{
+          height:'1px',
+          background:`linear-gradient(to right, transparent, ${lineColor}, transparent)`,
+          marginBottom:'0',
+        }}/>
+      )}
+
+      {/* The card itself */}
+      <div onClick={handleClick} className="contact-row" style={{
+        display:'flex', alignItems:'center', gap:'20px',
+        background:cardBg, border:`1px solid ${cardBorder}`,
+        borderRadius:'16px', padding:'18px 24px', margin:'10px 0',
+        cursor:'pointer', transition:'all 0.25s cubic-bezier(.4,0,.2,1)',
+      }}>
+        <div className="contact-icon-box" style={{
+          width:'52px', height:'52px', borderRadius:'13px', flexShrink:0,
           background: dark ? 'rgba(139,92,246,0.12)' : 'rgba(124,58,237,0.08)',
-          border: `1px solid ${dark ? 'rgba(139,92,246,0.2)' : 'rgba(124,58,237,0.2)'}`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          border:`1px solid ${dark ? 'rgba(139,92,246,0.2)' : 'rgba(124,58,237,0.2)'}`,
+          display:'flex', alignItems:'center', justifyContent:'center',
           color: dark ? 'rgba(167,139,250,0.5)' : 'rgba(124,58,237,0.4)',
-          transition: 'all 0.25s ease',
-        }}
-      >
-        <Icon type={c.icon}/>
-      </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ color: muted, fontSize: '11px', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase' as const, marginBottom: '4px' }}>
-          {c.label}
+          transition:'all 0.25s ease',
+        }}>
+          <Icon type={c.icon}/>
         </div>
-        <div className="contact-value" style={{ color: dark ? '#e2e8f0' : '#1e1b4b', fontSize: '14px', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const, transition: 'color 0.25s' }}>
-          {c.value}
+        <div style={{ flex:1, minWidth:0 }}>
+          <div style={{ color:muted, fontSize:'11px', fontWeight:'700', letterSpacing:'1.5px', textTransform:'uppercase' as const, marginBottom:'4px' }}>
+            {c.label}
+          </div>
+          <div className="contact-value" style={{ color: dark ? '#e2e8f0' : '#1e1b4b', fontSize:'14px', fontWeight:'600', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' as const, transition:'color 0.25s' }}>
+            {c.value}
+          </div>
         </div>
       </div>
+
+      {/* BOTTOM horizontal line — only on last (GitHub) card */}
+      {isLast && (
+        <div style={{
+          height:'1px',
+          background:`linear-gradient(to right, transparent, ${lineColor}, transparent)`,
+          marginTop:'0',
+        }}/>
+      )}
     </div>
   )
 }
-
-const ErrMsg = ({ msg }: { msg: string }) => (
-  <div style={{ color:'#f87171', fontSize:'11px', fontWeight:'600', marginTop:'6px', display:'flex', alignItems:'center', gap:'5px' }}>
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f87171" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-    </svg>
-    {msg}
-  </div>
-)
 
 const Contact = () => {
   const { dark } = useContext(ThemeContext)
@@ -78,35 +86,22 @@ const Contact = () => {
   const [nameErr,  setNameErr]  = useState('')
   const [emailErr, setEmailErr] = useState('')
 
-  const sendWhatsApp = () => {
-    let valid = true
-
-    if (!name.trim()) {
-      setNameErr('Name is required')
-      valid = false
-    } else if (name.trim().length < 2) {
-      setNameErr('Name must be at least 2 characters')
-      valid = false
-    } else {
-      setNameErr('')
-    }
-
-    if (!email.trim()) {
-      setEmailErr('Email is required')
-      valid = false
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      setEmailErr('Please enter a valid email address')
-      valid = false
-    } else {
-      setEmailErr('')
-    }
-
-    if (!message.trim() || !valid) return
-
+  const handleSend = () => {
+    let nErr = ''
+    let eErr = ''
+    if (!name.trim()) { nErr = 'Name is required' }
+    else if (name.trim().length < 2) { nErr = 'At least 2 characters required' }
+    if (!email.trim()) { eErr = 'Email is required' }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) { eErr = 'Enter a valid email address' }
+    setNameErr(nErr)
+    setEmailErr(eErr)
+    if (nErr || eErr || !message.trim()) return
     const text = `Hi Lulakshi! I'm ${name} (${email}). ${message}`
     window.open(`https://wa.me/94750184902?text=${encodeURIComponent(text)}`, '_blank')
     setSent(true)
-    setTimeout(() => setSent(false), 3000)
+    setTimeout(() => {
+      setSent(false); setName(''); setEmail(''); setMessage(''); setNameErr(''); setEmailErr('')
+    }, 3000)
   }
 
   const contacts = [
@@ -118,31 +113,37 @@ const Contact = () => {
   ]
 
   const bg          = dark ? 'linear-gradient(180deg,#0a0a18 0%,#080810 100%)' : 'linear-gradient(180deg,#ede9fe 0%,#f8f7ff 100%)'
-  const muted       = dark ? '#475569'                 : '#7c6fa5'
-  const accentText  = dark ? '#a78bfa'                 : '#7c3aed'
-  const badgeBg     = dark ? 'rgba(139,92,246,0.1)'    : 'rgba(124,58,237,0.08)'
-  const badgeBorder = dark ? 'rgba(139,92,246,0.3)'    : 'rgba(124,58,237,0.25)'
-  const cardBg      = dark ? 'rgba(14,14,28,0.85)'     : 'rgba(255,255,255,0.9)'
-  const cardBorder  = dark ? 'rgba(139,92,246,0.12)'   : 'rgba(124,58,237,0.12)'
-  const formBg      = dark ? 'rgba(14,14,28,0.9)'      : 'rgba(255,255,255,0.98)'
-  const formBorder  = dark ? 'rgba(139,92,246,0.18)'   : 'rgba(124,58,237,0.18)'
-  const inputText   = dark ? '#ffffff'                 : '#1e1b4b'
-  const labelText   = dark ? '#475569'                 : '#7c6fa5'
-  const underline   = dark ? 'rgba(139,92,246,0.25)'   : 'rgba(124,58,237,0.2)'
-  const orb1        = dark ? 'rgba(139,92,246,0.06)'   : 'rgba(124,58,237,0.05)'
-  const orb2        = dark ? 'rgba(99,102,241,0.05)'   : 'rgba(99,102,241,0.04)'
+  const muted       = dark ? '#475569'               : '#7c6fa5'
+  const accentText  = dark ? '#a78bfa'               : '#7c3aed'
+  const badgeBg     = dark ? 'rgba(139,92,246,0.1)'  : 'rgba(124,58,237,0.08)'
+  const badgeBorder = dark ? 'rgba(139,92,246,0.3)'  : 'rgba(124,58,237,0.25)'
+  const cardBg      = dark ? 'rgba(14,14,28,0.85)'   : 'rgba(255,255,255,0.9)'
+  const cardBorder  = dark ? 'rgba(139,92,246,0.12)' : 'rgba(124,58,237,0.12)'
+  const formBg      = dark ? 'rgba(14,14,28,0.9)'    : 'rgba(255,255,255,0.98)'
+  const formBorder  = dark ? 'rgba(139,92,246,0.18)' : 'rgba(124,58,237,0.18)'
+  const inputText   = dark ? '#ffffff'               : '#1e1b4b'
+  const labelText   = dark ? '#64748b'               : '#7c6fa5'
+  const lineNormal  = dark ? 'rgba(139,92,246,0.3)'  : 'rgba(124,58,237,0.25)'
+  const orb1        = dark ? 'rgba(139,92,246,0.06)' : 'rgba(124,58,237,0.05)'
+  const orb2        = dark ? 'rgba(99,102,241,0.05)' : 'rgba(99,102,241,0.04)'
 
-  const inp = (hasErr: boolean): React.CSSProperties => ({
-    width: '100%', background: 'transparent',
-    border: 'none',
-    borderBottom: `1px solid ${hasErr ? '#f87171' : underline}`,
-    borderRadius: '0', padding: '10px 0',
-    color: inputText, fontSize: '15px', outline: 'none',
-    boxSizing: 'border-box', fontFamily: 'inherit',
-    transition: 'border-color 0.2s',
+  const fieldStyle = (hasErr: boolean): React.CSSProperties => ({
+    width:'100%', background:'transparent', border:'none',
+    borderBottom:`1.5px solid ${hasErr ? '#f87171' : lineNormal}`,
+    borderRadius:'0', padding:'10px 0', color:inputText, fontSize:'15px',
+    outline:'none', boxSizing:'border-box', fontFamily:'inherit', transition:'border-color 0.2s',
   })
 
-  const isDisabled = !name.trim() || !email.trim() || !message.trim()
+  const ErrLine = ({ msg }: { msg: string }) => (
+    <div style={{ display:'flex', alignItems:'center', gap:'5px', marginTop:'7px' }}>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f87171" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span style={{ color:'#f87171', fontSize:'11px', fontWeight:'600' }}>{msg}</span>
+    </div>
+  )
 
   return (
     <div style={{ minHeight:'100vh', padding:'100px 6%', background:bg, position:'relative', overflow:'hidden' }}>
@@ -177,90 +178,60 @@ const Contact = () => {
             <p style={{ color:muted, fontSize:'12px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase', marginBottom:'20px' }}>
               Reach me via
             </p>
-            <div style={{ display:'flex', flexDirection:'column', gap:'10px' }}>
-              {contacts.map(c => (
-                <ContactRow key={c.label} c={c} dark={dark} cardBg={cardBg} cardBorder={cardBorder} muted={muted}/>
+            <div style={{ display:'flex', flexDirection:'column' }}>
+              {contacts.map((c, i) => (
+                <ContactRow
+                  key={c.label}
+                  c={c}
+                  dark={dark}
+                  cardBg={cardBg}
+                  cardBorder={cardBorder}
+                  muted={muted}
+                  isFirst={i === 0}
+                  isLast={i === contacts.length - 1}
+                />
               ))}
             </div>
           </div>
 
           {/* RIGHT — form */}
           <div style={{
-            background: formBg, border: `1px solid ${formBorder}`,
-            borderRadius: '24px', padding: '40px',
-            backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)',
+            background:formBg, border:`1px solid ${formBorder}`,
+            borderRadius:'24px', padding:'40px',
+            backdropFilter:'blur(12px)', WebkitBackdropFilter:'blur(12px)',
             boxShadow: dark ? '0 24px 60px rgba(139,92,246,0.1)' : '0 24px 60px rgba(124,58,237,0.08)',
-            position: 'relative', overflow: 'hidden',
+            position:'relative', overflow:'hidden',
           }}>
             <div style={{ position:'absolute', top:'-40px', right:'-40px', width:'160px', height:'160px', borderRadius:'50%', background: dark ? 'rgba(139,92,246,0.08)' : 'rgba(124,58,237,0.06)', filter:'blur(40px)', pointerEvents:'none' }}/>
 
-            {/* NAME */}
-            <div style={{ marginBottom: nameErr ? '20px' : '32px' }}>
+            <div style={{ marginBottom:'28px' }}>
               <label style={{ color:labelText, fontSize:'11px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase' as const, display:'block', marginBottom:'10px' }}>Name</label>
-              <input
-                value={name}
-                onChange={e => { setName(e.target.value); if (nameErr) setNameErr('') }}
-                style={inp(!!nameErr)}
-                className="contact-input"
-              />
-              {nameErr && <ErrMsg msg={nameErr}/>}
+              <input value={name} onChange={e => { setName(e.target.value); if (nameErr) setNameErr('') }} style={fieldStyle(!!nameErr)} className="contact-input"/>
+              {nameErr && <ErrLine msg={nameErr}/>}
             </div>
 
-            {/* EMAIL */}
-            <div style={{ marginBottom: emailErr ? '20px' : '32px' }}>
+            <div style={{ marginBottom:'28px' }}>
               <label style={{ color:labelText, fontSize:'11px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase' as const, display:'block', marginBottom:'10px' }}>Email</label>
-              <input
-                value={email}
-                onChange={e => { setEmail(e.target.value); if (emailErr) setEmailErr('') }}
-                style={inp(!!emailErr)}
-                className="contact-input"
-              />
-              {emailErr && <ErrMsg msg={emailErr}/>}
+              <input value={email} onChange={e => { setEmail(e.target.value); if (emailErr) setEmailErr('') }} style={fieldStyle(!!emailErr)} className="contact-input"/>
+              {emailErr && <ErrLine msg={emailErr}/>}
             </div>
 
-            {/* MESSAGE */}
-            <div style={{ marginBottom:'40px' }}>
+            <div style={{ marginBottom:'36px' }}>
               <label style={{ color:labelText, fontSize:'11px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase' as const, display:'block', marginBottom:'10px' }}>Message</label>
-              <textarea
-                value={message}
-                onChange={e => setMessage(e.target.value)}
-                rows={4}
-                style={{ ...inp(false), resize:'none' }}
-                className="contact-input"
-              />
+              <textarea value={message} onChange={e => setMessage(e.target.value)} rows={4} style={{ ...fieldStyle(false), resize:'none' }} className="contact-input"/>
             </div>
 
-            {/* BUTTON — bright vivid purple matching image 2 */}
-            <button
-              onClick={sendWhatsApp}
-              disabled={isDisabled}
-              className="send-btn"
-              style={{
-                width: '100%',
-                background: sent
-                  ? 'linear-gradient(135deg,#10b981,#059669)'
-                  : '#7c3aed',
-                color: '#ffffff',
-                padding: '15px',
-                borderRadius: '50px',
-                fontWeight: '800',
-                fontSize: '15px',
-                border: 'none',
-                cursor: isDisabled ? 'not-allowed' : 'pointer',
-                boxShadow: sent
-                  ? '0 8px 24px rgba(16,185,129,0.4)'
-                  : '0 8px 32px rgba(124,58,237,0.55)',
-                transition: 'all 0.3s ease',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
-                opacity: isDisabled ? 0.5 : 1,
-                letterSpacing: '0.3px',
-              }}
-            >
+            <button onClick={handleSend} className="send-btn" style={{
+              width:'100%',
+              background: sent ? 'linear-gradient(135deg,#10b981,#059669)' : 'linear-gradient(135deg,#8b5cf6,#7c3aed,#6366f1)',
+              color:'#ffffff', padding:'16px', borderRadius:'50px', fontWeight:'800', fontSize:'15px',
+              border:'none', cursor:'pointer',
+              boxShadow: sent ? '0 8px 24px rgba(16,185,129,0.45)' : '0 8px 32px rgba(124,58,237,0.6)',
+              transition:'all 0.3s ease', display:'flex', alignItems:'center', justifyContent:'center', gap:'10px', letterSpacing:'0.3px',
+            }}>
               {sent ? (
                 <>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                   <span style={{ color:'#ffffff', fontWeight:'800' }}>Sent!</span>
                 </>
               ) : (
@@ -297,20 +268,16 @@ const Contact = () => {
         }
         .contact-input:focus {
           border-bottom-color: #8b5cf6 !important;
-          box-shadow: none;
         }
-        .send-btn:hover:not(:disabled) {
-          background: #6d28d9 !important;
+        .send-btn:hover {
+          background: linear-gradient(135deg,#7c3aed,#6d28d9,#4f46e5) !important;
           transform: translateY(-2px);
-          box-shadow: 0 16px 40px rgba(124,58,237,0.65) !important;
+          box-shadow: 0 16px 44px rgba(124,58,237,0.7) !important;
         }
-        .send-btn:active:not(:disabled) {
-          transform: translateY(0);
-        }
+        .send-btn:active { transform: translateY(0); }
       `}</style>
     </div>
   )
 }
 
 export default Contact
-
