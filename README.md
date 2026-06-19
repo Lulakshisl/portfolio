@@ -63,5 +63,4 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir:
+        project: ['./tsconfig.node.json', './tsconfig.app.json']
