@@ -64,5 +64,4 @@ export default defineConfig([
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirna
-    
+        tsconfigRootDir: import.meta.dirn
