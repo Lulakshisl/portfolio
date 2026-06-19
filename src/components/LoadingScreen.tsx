@@ -91,8 +91,7 @@ const LoadingScreen = ({ onDone }: { onDone: () => void }) => {
         position: 'relative', zIndex: 2,
         animation: 'fade-in-up 0.8s ease 0.15s both',
       }}>
-        
-      </div>
+        </div>
 
       {/* Loading text */}
       <div style={{
