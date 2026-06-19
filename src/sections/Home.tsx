@@ -113,14 +113,6 @@ const Home = () => {
         <div className="float-photo" style={{position:'relative',width:'360px',height:'360px',borderRadius:'50%',overflow:'hidden',border:`3px solid ${cardBorder}`,boxShadow:dark?'0 0 80px rgba(139,92,246,0.2)':'0 0 80px rgba(139,92,246,0.15)'}}>
           <img src="/hero.png" alt="Lulakshi" style={{width:'100%',height:'100%',objectFit:'cover'}}/>
         </div>
-        <div style={{position:'absolute',bottom:'30px',left:'-70px',background:cardBg,border:`1px solid ${cardBorder}`,borderRadius:'12px',padding:'12px 18px',backdropFilter:'blur(10px)'}}>
-          <div style={{color:'#8b5cf6',fontSize:'22px',fontWeight:'900'}}>10+</div>
-          <div style={{color:muted,fontSize:'11px',fontWeight:'600'}}>Projects Done</div>
-        </div>
-        <div style={{position:'absolute',top:'40px',right:'-60px',background:cardBg,border:`1px solid ${cardBorder}`,borderRadius:'12px',padding:'12px 18px',backdropFilter:'blur(10px)'}}>
-          <div style={{color:'#6366f1',fontSize:'22px',fontWeight:'900'}}>5+</div>
-          <div style={{color:muted,fontSize:'11px',fontWeight:'600'}}>Technologies</div>
-        </div>
       </div>
 
       <style>{`

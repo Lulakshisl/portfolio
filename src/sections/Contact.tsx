@@ -108,7 +108,7 @@ const Contact = () => {
     { icon:'whatsapp', label:'WhatsApp', value:'+94 75 018 4902',              href:'https://wa.me/94750184902' },
     { icon:'mail',     label:'Email',    value:'lulakshimadubashini@gmail.com', href:'mailto:lulakshimadubashini@gmail.com' },
     { icon:'phone',    label:'Phone',    value:'+94 75 018 4902',               href:'tel:+94750184902' },
-    { icon:'linkedin', label:'LinkedIn', value:'lulakshi-madubashini',          href:'https://linkedin.com' },
+    { icon:'linkedin', label:'LinkedIn', value:'lulakshi-madubashini',          href:'https://www.linkedin.com/in/lulakshi-madubashini-3177aa2a4/?skipRedirect=true' },
     { icon:'github',   label:'GitHub',   value:'@Lulakshisl',                   href:'https://github.com/Lulakshisl' },
   ]
 
@@ -157,7 +157,7 @@ const Contact = () => {
         <div style={{ marginBottom:'64px' }}>
           <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', background:badgeBg, border:`1px solid ${badgeBorder}`, borderRadius:'50px', padding:'6px 16px', marginBottom:'20px' }}>
             <span style={{ width:'7px', height:'7px', borderRadius:'50%', background:'#8b5cf6', display:'inline-block', animation:'pulse-dot 2s ease-in-out infinite' }}/>
-            <span style={{ color:accentText, fontSize:'11px', fontWeight:'700', letterSpacing:'2.5px', textTransform:'uppercase' }}>Get In Touch</span>
+            <span style={{ color:accentText, fontSize:'11px', fontWeight:'700', letterSpacing:'2.5px', textTransform:'uppercase' }}>Contact</span>
           </div>
           <h2 style={{ fontSize:'clamp(34px,5vw,52px)', fontWeight:'900', letterSpacing:'-2px', lineHeight:1.05, margin:'0 0 20px 0' }}>
             <span style={{ color: dark ? '#ffffff' : '#1e1b4b' }}>{"Let's build "}</span>
