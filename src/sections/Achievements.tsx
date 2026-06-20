@@ -6,31 +6,32 @@ const achievements = [
     title: 'Data Analytics with AI',
     org: 'Sololearn', year: '2026',
     tags: ['Data Analytics','Basics'],
-    id: 'CC-SGABJZOA', type: 'Certification', icon: '📊',
+    id: 'CC-SGABJZOA', type: 'Certification', icon: '🌐',
   },
   {
     title: 'SQL Intermediate',
     org: 'Sololearn', year: '2026',
     tags: ['SQL','Intermediate'],
-    id: 'CC-IWSFMX7P', type: 'Certification', icon: '🗄️',
+    id: 'CC-IWSFMX7P', type: 'Certification', icon: '🌐',
   },
   {
     title: 'Introduction to Programming Using JavaScript',
     org: 'Sololearn', year: '2026',
     tags: ['JavaScript','Basics'],
-    id: 'CC-9HQFF8FL', type: 'Certification', icon: '⚡',
+    id: 'CC-9HQFF8FL', type: 'Certification', icon: '🌐',
   },
   {
     title: 'Introduction to Programming SQL',
     org: 'Sololearn', year: '2026',
     tags: ['SQL','Basics'],
-    id: 'CC-YWAEU9LZ', type: 'Certification', icon: '📋',
+    id: 'CC-YWAEU9LZ', type: 'Certification', icon: '🌐',
   },
   {
     title: 'Introduction to Programming Using CSS',
     org: 'Sololearn', year: '2026',
     tags: ['CSS','Basics'],
-    id: 'CC-A8PZNKIY', type: 'Certification', icon: '🎨',
+    id: 'CC-A8PZNKIY', type: 'Certification', icon: '🌐',
+    
   },
   {
     title: 'Introduction to Programming Using HTML',
@@ -100,7 +101,7 @@ const Achievements = () => {
                   userSelect:'none' as const,
                 }}
               >
-                {f === 'Certification' ? '🎓 ' : '✦ '}{f}
+                {f === 'Certification' ? '🎓 ' : '✦'}{f}
               </div>
             ))}
           </div>
@@ -175,7 +176,7 @@ const Achievements = () => {
                     padding:'3px 10px', borderRadius:'50px',
                     display:'flex', alignItems:'center', gap:'4px',
                   }}>
-                    {'<>'} {tag}
+                    {'<  >'} {tag}
                   </span>
                 ))}
               </div>

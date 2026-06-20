@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import { ThemeContext } from '../App'
 import LushiLogo from './LushiLogo'
 
-const items = ['Home', 'About', 'Skills', 'Projects', 'Contact']
+const items = ['Home', 'About', 'Skills', 'Projects', 'Achievements', 'Contact']
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -55,29 +55,24 @@ const Navbar = () => {
         transition: 'all 0.4s',
       }}>
 
-        {/* ── Logo ── */}
-        <div style={{ display:'flex', alignItems:'center', gap:'10px', cursor:'pointer' }}
-          onClick={() => handleNavClick('Home')}>
-          <div style={{
-            filter: 'drop-shadow(0 0 8px rgba(139,92,246,0.6))',
-            transition: 'filter 0.3s ease',
-          }}
-          className="nav-logo"
+        {/* Logo */}
+        <div
+          onClick={() => handleNavClick('Home')}
+          style={{ display:'flex', alignItems:'center', gap:'10px', cursor:'pointer' }}
+        >
+          <div
+            className="nav-logo"
+            style={{ filter:'drop-shadow(0 0 8px rgba(139,92,246,0.6))', transition:'filter 0.3s ease' }}
           >
             <LushiLogo size={36}/>
           </div>
-          <div style={{ display:'flex', flexDirection:'column', lineHeight:1.15 }}>
-            <span style={{
-              fontWeight: 900, fontSize: '16px', letterSpacing: '2px',
-              color: dark ? 'white' : '#1e1b4b',
-            }}>
-              LUSHI
-            </span>
-          </div>
+          <span style={{ fontWeight:900, fontSize:'16px', letterSpacing:'2px', color: dark ? 'white' : '#1e1b4b' }}>
+            LUSHI
+          </span>
         </div>
 
-        {/* ── Nav items ── */}
-        <div style={{ display:'flex', gap:'28px', alignItems:'center' }}>
+        {/* Nav items */}
+        <div style={{ display:'flex', gap:'24px', alignItems:'center' }}>
           {items.map(item => {
             const isActive = active === item
             return (
@@ -88,7 +83,7 @@ const Navbar = () => {
                 style={{
                   color: isActive ? activeColor : textColor,
                   fontWeight: isActive ? 700 : 500,
-                  fontSize: '14px',
+                  fontSize: '13.5px',
                   position: 'relative',
                   paddingBottom: '6px',
                   cursor: 'pointer',
@@ -99,7 +94,8 @@ const Navbar = () => {
                 {item}
                 <span style={{
                   position: 'absolute',
-                  bottom: 0, left: '50%',
+                  bottom: 0,
+                  left: '50%',
                   transform: 'translateX(-50%)',
                   display: 'block',
                   width: isActive ? '60%' : '0%',
@@ -114,10 +110,10 @@ const Navbar = () => {
           })}
         </div>
 
-        {/* ── Right side ── */}
+        {/* Right side */}
         <div style={{ display:'flex', alignItems:'center', gap:'10px' }}>
 
-          {/* CV pill button */}
+          {/* CV button */}
           <div
             onClick={() => {
               const link = document.createElement('a')
@@ -170,19 +166,21 @@ const Navbar = () => {
                 <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
               </svg>
             ) : (
-
               <svg width="16" height="16" viewBox="0 0 24 24" fill="#7c3aed" stroke="#7c3aed" strokeWidth="1">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
-
             )}
           </button>
         </div>
       </nav>
 
       <style>{`
-        .nav-item:hover { color: ${dark ? '#ffffff' : '#1e1b4b'} !important; }
-        .nav-item:hover span { width: 40% !important; }
+        .nav-item:hover {
+          color: ${dark ? '#ffffff' : '#1e1b4b'} !important;
+        }
+        .nav-item:hover span {
+          width: 40% !important;
+        }
         .cv-btn:hover {
           transform: translateY(-1px);
           box-shadow: 0 8px 20px rgba(139,92,246,0.55) !important;
@@ -196,4 +194,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-

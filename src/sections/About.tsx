@@ -74,10 +74,6 @@ const About = () => {
               <img src="/lushi.png" alt="About" style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
               <div style={{ position:'absolute', inset:0, background: dark ? 'linear-gradient(to top,rgba(8,8,16,0.6),transparent)' : 'linear-gradient(to top,rgba(124,58,237,0.15),transparent)' }}/>
             </div>
-            <div style={{ position:'absolute', bottom:'-20px', right:'-20px', background:'linear-gradient(135deg,#8b5cf6,#6366f1)', borderRadius:'16px', padding:'16px 20px', textAlign:'center', boxShadow:'0 10px 30px rgba(139,92,246,0.4)' }}>
-              <div style={{ color:'white', fontSize:'28px', fontWeight:'900' }}>2+</div>
-              <div style={{ color:'rgba(255,255,255,0.8)', fontSize:'11px', fontWeight:'600' }}>Years Learning</div>
-            </div>
           </div>
 
           <div style={{ flex:1 }}>

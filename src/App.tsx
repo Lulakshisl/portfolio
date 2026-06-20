@@ -4,6 +4,7 @@ import Home from './sections/Home'
 import About from './sections/About'
 import Skills from './sections/Skills'
 import Projects from './sections/Projects'
+import Achievements from './sections/Achievements'
 import Contact from './sections/Contact'
 import Footer from './components/Footer'
 import FloatingWhatsApp from './components/FloatingWhatsApp'
@@ -55,6 +56,8 @@ function App() {
         <SectionDivider dark={dark} />
         <div id="projects"><Projects /></div>
         <SectionDivider dark={dark} />
+        <div id="achievements"><Achievements /></div>
+        <SectionDivider dark={dark} />
         <div id="contact"><Contact /></div>
         <SectionDivider dark={dark} />
         <Footer />
@@ -65,4 +68,3 @@ function App() {
 }
 
 export default App
-
