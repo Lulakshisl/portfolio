@@ -12,7 +12,7 @@ const FloatingWhatsApp = () => {
         aria-label="Chat on WhatsApp"
         style={{
           position: 'fixed',
-          bottom: '28px',
+          bottom: '10px',
           right: '28px',
           zIndex: 999,
           width: '56px',
