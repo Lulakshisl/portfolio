@@ -45,11 +45,11 @@ type Project = typeof projects[0]
 
 // ── 3D Tilt Card ──────────────────────────────────────────────
 const TiltCard = ({
-p, dark, cardBg, cardBorder, heading, descText,
+p, _dark, cardBg, cardBorder, heading, descText,
   accentText, tagBg, tagBorder, secBtnBg, secBtnBorder,
   onClick,
 }: {
-  p: Project, dark: boolean, cardBg: string, cardBorder: string,
+  p: Project, _dark: boolean, cardBg: string, cardBorder: string,
   heading: string, descText: string, accentText: string,
   tagBg: string, tagBorder: string, secBtnBg: string,
   secBtnBorder: string, onClick: () => void,
@@ -342,7 +342,7 @@ const Projects = () => {
         <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'24px' }}>
           {filtered.map(p => (
             <TiltCard
-              key={p.title} p={p} dark={dark}
+              key={p.title} p={p} _dark={dark}
               cardBg={cardBg} cardBorder={cardBorder}
               heading={heading} descText={descText}
               accentText={accentText} tagBg={tagBg}
