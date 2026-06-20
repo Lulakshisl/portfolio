@@ -45,7 +45,7 @@ type Project = typeof projects[0]
 
 // ── 3D Tilt Card ──────────────────────────────────────────────
 const TiltCard = ({
-  p, dark, cardBg, cardBorder, heading, descText,
+p, dark, cardBg, cardBorder, heading, descText,
   accentText, tagBg, tagBorder, secBtnBg, secBtnBorder,
   onClick,
 }: {
