@@ -42,8 +42,8 @@ const Footer = () => {
   return (
     <div style={{
       background: bg,
-      borderTop: `1px solid ${border}`,
-      padding: '28px 8%',
+      borderTop: `0px solid ${border}`,
+      padding: '40px 8%',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
