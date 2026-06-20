@@ -59,7 +59,7 @@ function App() {
         <div id="achievements"><Achievements /></div>
         <SectionDivider dark={dark} />
         <div id="contact"><Contact /></div>
-        <SectionDivider dark={dark} />
+        <hr style={{ margin: '1px 0', border: 'none', borderTop: `1px solid ${dark ? '#1f1f20' : '#7c3aed'}` }} />
         <Footer />
         <FloatingWhatsApp />
       </div>
