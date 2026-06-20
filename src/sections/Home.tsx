@@ -153,7 +153,7 @@ const Home = () => {
         <h1 style={{ fontSize:'clamp(42px,5vw,68px)', fontWeight:'900', lineHeight:'1.05', marginBottom:'16px', color:heading, letterSpacing:'-2px' }}>
           Hi, I'm<br/>
           <span style={{ background:'linear-gradient(135deg,#8b5cf6,#6366f1,#a78bfa)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
-            Lulakshi
+            Lulakshi Wijesinghe
           </span>
         </h1>
 
