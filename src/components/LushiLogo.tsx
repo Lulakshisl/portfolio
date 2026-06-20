@@ -43,3 +43,5 @@ const LushiLogo = ({ size = 40 }: { size?: number }) => (
 
 export default LushiLogo
 
+
+
