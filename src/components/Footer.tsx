@@ -49,7 +49,9 @@ const Footer = () => {
       alignItems: 'center',
       flexWrap: 'wrap',
       gap: '100px'
+
     }}>
+      
       {/* Left - Copyright Text (was LUSHI.DEV) */}
       <p style={{ 
         color: copyText, 
