@@ -1,4 +1,4 @@
-React + TypeScript + Tailwind CSS + Vite + Git + Vercel
+#React + TypeScript + Tailwind CSS + Vite + Git + Vercel
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
