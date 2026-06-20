@@ -239,7 +239,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-
+      
       {/* ── Right — photo ── */}
       <div style={{ position:'relative', flexShrink:0, zIndex:1 }}>
 

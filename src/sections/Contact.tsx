@@ -397,7 +397,7 @@ const Contact = () => {
             display: 'grid',
             gridTemplateColumns: '1fr 1.1fr',
             gap: '40px',
-            alignItems: 'stretch', // ← මෙය එකතු කරන්න
+            alignItems: 'stretch', // ← මෙය එකතු කරන්න -last update 
           }}
         >
           {/* LEFT column – contact cards */}
@@ -405,8 +405,8 @@ const Contact = () => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-evenly', // ← උඩ/පහළ balance කරන්න
-              height: '100%', // ← form එකේ උසට stretch වෙනවා
+              justifyContent: 'space-evenly', // ← උඩ/පහළ balance කරන්න -  last update
+              height: '100%', // ← form එකේ උසට stretch වෙනවා -  last update
             }}
           >
             {contacts.map((c, i) => (
