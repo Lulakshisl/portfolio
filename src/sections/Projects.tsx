@@ -35,7 +35,14 @@ const projects = [
     desc: 'Smart parking application with slot booking, location tracking and user management features.',
     tags: ['Kotlin','Java'],
     type: 'Mobile', demo: '#', code: 'https://github.com/Lulakshisl',
-    color: '#8b5cf6', src: '/mobailapp.png'
+    color: '#8b5cf6', src: '/mobailapp1.png'
+  },
+  {
+    title: 'Medicare',
+    desc: 'Healthcare web platform for managing patient records, appointments, and medical data with a clean and accessible interface.',
+    tags: ['React','Vite','JavaScript','MongoDB'],
+    type: 'Web', demo: '#', code: 'https://github.com/Lulakshisl',
+    color: '#8b5cf6', src: '/medicare.png'
   },
 ]
 
@@ -43,13 +50,12 @@ const filters = ['All','Web','Mobile','Enterprise']
 
 type Project = typeof projects[0]
 
-// ── 3D Tilt Card ──────────────────────────────────────────────
 const TiltCard = ({
-p, _dark, cardBg, cardBorder, heading, descText,
+  p, cardBg, cardBorder, heading, descText,
   accentText, tagBg, tagBorder, secBtnBg, secBtnBorder,
   onClick,
 }: {
-  p: Project, _dark: boolean, cardBg: string, cardBorder: string,
+  p: Project, cardBg: string, cardBorder: string,
   heading: string, descText: string, accentText: string,
   tagBg: string, tagBorder: string, secBtnBg: string,
   secBtnBorder: string, onClick: () => void,
@@ -92,7 +98,6 @@ p, _dark, cardBg, cardBorder, heading, descText,
       }}
       className="project-card"
     >
-      {/* Image area */}
       <div style={{
         height: '170px',
         background: `linear-gradient(135deg,${p.color}25,${p.color}08)`,
@@ -111,7 +116,6 @@ p, _dark, cardBg, cardBorder, heading, descText,
           ? <img src={p.src} alt={p.title} style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
           : <span style={{ fontSize:'40px', opacity:0.2, color:heading }}>{'</>'}</span>
         }
-        {/* hover overlay hint */}
         <div className="card-overlay" style={{
           position:'absolute', inset:0, display:'flex',
           alignItems:'center', justifyContent:'center',
@@ -123,7 +127,6 @@ p, _dark, cardBg, cardBorder, heading, descText,
         </div>
       </div>
 
-      {/* Content */}
       <div style={{ padding:'22px' }}>
         <h3 style={{ color:heading, fontSize:'15px', fontWeight:'800', marginBottom:'8px', lineHeight:1.3 }}>
           {p.title}
@@ -163,7 +166,6 @@ p, _dark, cardBg, cardBorder, heading, descText,
   )
 }
 
-// ── Modal ──────────────────────────────────────────────────────
 const Modal = ({
   p, dark, onClose,
   heading, muted, accentText, tagBg, tagBorder,
@@ -199,7 +201,6 @@ const Modal = ({
           position: 'relative',
         }}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           style={{
@@ -216,7 +217,6 @@ const Modal = ({
           ✕
         </button>
 
-        {/* Image */}
         <div style={{
           height:'220px',
           background:`linear-gradient(135deg,${p.color}25,${p.color}08)`,
@@ -238,7 +238,6 @@ const Modal = ({
           }
         </div>
 
-        {/* Body */}
         <div style={{ padding:'28px' }}>
           <h2 style={{ color:heading, fontSize:'22px', fontWeight:'900', marginBottom:'10px', lineHeight:1.2 }}>
             {p.title}
@@ -246,8 +245,6 @@ const Modal = ({
           <p style={{ color:muted, fontSize:'14px', lineHeight:1.8, marginBottom:'20px' }}>
             {p.desc}
           </p>
-
-          {/* Tags */}
           <div style={{ display:'flex', flexWrap:'wrap', gap:'8px', marginBottom:'24px' }}>
             {p.tags.map(tag => (
               <span key={tag} style={{
@@ -257,8 +254,6 @@ const Modal = ({
               }}>{tag}</span>
             ))}
           </div>
-
-          {/* Buttons */}
           <div style={{ display:'flex', gap:'12px' }}>
             <a href={p.demo} target="_blank" rel="noreferrer" style={{
               flex:1, background:'linear-gradient(135deg,#8b5cf6,#6366f1)',
@@ -281,36 +276,34 @@ const Modal = ({
   )
 }
 
-// ── Main Component ─────────────────────────────────────────────
 const Projects = () => {
   const { dark } = useContext(ThemeContext)
-  const [filter, setFilter]       = useState('All')
-  const [selected, setSelected]   = useState<Project | null>(null)
+  const [filter, setFilter]     = useState('All')
+  const [selected, setSelected] = useState<Project | null>(null)
 
   const filtered = filter === 'All' ? projects : projects.filter(p => p.type === filter)
 
   const bg                 = dark ? 'linear-gradient(180deg,#080810 0%,#0a0a18 100%)' : 'linear-gradient(180deg,#f8f7ff 0%,#ede9fe 100%)'
-  const heading            = dark ? 'white'                      : '#1e1b4b'
-  const muted              = dark ? '#64748b'                    : '#7c6fa5'
-  const accentText         = dark ? '#a78bfa'                    : '#7c3aed'
-  const badgeBg            = dark ? 'rgba(139,92,246,0.1)'       : 'rgba(124,58,237,0.08)'
-  const badgeBorder        = dark ? 'rgba(139,92,246,0.3)'       : 'rgba(124,58,237,0.25)'
-  const filterInactiveBg   = dark ? 'rgba(139,92,246,0.05)'      : 'rgba(124,58,237,0.04)'
-  const filterInactiveBdr  = dark ? 'rgba(139,92,246,0.2)'       : 'rgba(124,58,237,0.18)'
-  const filterInactiveText = dark ? '#94a3b8'                    : '#6b5b95'
-  const cardBg             = dark ? 'rgba(14,14,28,0.85)'        : 'rgba(255,255,255,0.85)'
-  const cardBorder         = dark ? 'rgba(139,92,246,0.15)'      : 'rgba(124,58,237,0.15)'
-  const descText           = dark ? '#64748b'                    : '#6b5b95'
-  const tagBg              = dark ? 'rgba(139,92,246,0.1)'       : 'rgba(124,58,237,0.08)'
-  const tagBorder          = dark ? 'rgba(139,92,246,0.2)'       : 'rgba(124,58,237,0.18)'
-  const secBtnBg           = dark ? 'rgba(139,92,246,0.08)'      : 'rgba(124,58,237,0.06)'
-  const secBtnBorder       = dark ? 'rgba(139,92,246,0.2)'       : 'rgba(124,58,237,0.18)'
+  const heading            = dark ? 'white'                   : '#1e1b4b'
+  const muted              = dark ? '#64748b'                 : '#7c6fa5'
+  const accentText         = dark ? '#a78bfa'                 : '#7c3aed'
+  const badgeBg            = dark ? 'rgba(139,92,246,0.1)'    : 'rgba(124,58,237,0.08)'
+  const badgeBorder        = dark ? 'rgba(139,92,246,0.3)'    : 'rgba(124,58,237,0.25)'
+  const filterInactiveBg   = dark ? 'rgba(139,92,246,0.05)'   : 'rgba(124,58,237,0.04)'
+  const filterInactiveBdr  = dark ? 'rgba(139,92,246,0.2)'    : 'rgba(124,58,237,0.18)'
+  const filterInactiveText = dark ? '#94a3b8'                 : '#6b5b95'
+  const cardBg             = dark ? 'rgba(14,14,28,0.85)'     : 'rgba(255,255,255,0.85)'
+  const cardBorder         = dark ? 'rgba(139,92,246,0.15)'   : 'rgba(124,58,237,0.15)'
+  const descText           = dark ? '#64748b'                 : '#6b5b95'
+  const tagBg              = dark ? 'rgba(139,92,246,0.1)'    : 'rgba(124,58,237,0.08)'
+  const tagBorder          = dark ? 'rgba(139,92,246,0.2)'    : 'rgba(124,58,237,0.18)'
+  const secBtnBg           = dark ? 'rgba(139,92,246,0.08)'   : 'rgba(124,58,237,0.06)'
+  const secBtnBorder       = dark ? 'rgba(139,92,246,0.2)'    : 'rgba(124,58,237,0.18)'
 
   return (
     <div style={{ minHeight:'100vh', padding:'100px 6%', background:bg }}>
       <div style={{ maxWidth:'1100px', margin:'0 auto' }}>
 
-        {/* Header */}
         <div style={{ marginBottom:'48px' }}>
           <div style={{ display:'inline-block', background:badgeBg, border:`1px solid ${badgeBorder}`, borderRadius:'50px', padding:'5px 16px', marginBottom:'16px' }}>
             <span style={{ color:accentText, fontSize:'12px', fontWeight:'700', letterSpacing:'2px', textTransform:'uppercase' }}>Projects</span>
@@ -321,7 +314,6 @@ const Projects = () => {
           <p style={{ color:muted, fontSize:'15px', marginBottom:'28px', maxWidth:'480px', lineHeight:1.7 }}>
             A selection of things I've built — click any card to explore it in detail.
           </p>
-          {/* Filter pills */}
           <div style={{ display:'flex', gap:'10px' }}>
             {filters.map(f => (
               <button key={f} onClick={() => setFilter(f)} style={{
@@ -338,11 +330,10 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Grid */}
         <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'24px' }}>
           {filtered.map(p => (
             <TiltCard
-              key={p.title} p={p} _dark={dark}
+              key={p.title} p={p}
               cardBg={cardBg} cardBorder={cardBorder}
               heading={heading} descText={descText}
               accentText={accentText} tagBg={tagBg}
@@ -354,7 +345,6 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Modal */}
       {selected && (
         <Modal
           p={selected} dark={dark} onClose={() => setSelected(null)}
@@ -366,7 +356,7 @@ const Projects = () => {
       )}
 
       <style>{`
-        @keyframes fadeIn  { from { opacity:0 }              to { opacity:1 } }
+        @keyframes fadeIn  { from { opacity:0 } to { opacity:1 } }
         @keyframes slideUp { from { opacity:0; transform:translateY(30px) scale(0.97) } to { opacity:1; transform:translateY(0) scale(1) } }
         .project-card:hover .card-overlay { opacity: 1 !important; }
         .project-card:hover {
