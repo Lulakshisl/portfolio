@@ -3,28 +3,10 @@ import { ThemeContext } from '../App'
 
 const achievements = [
   {
-    title: 'Data Analytics with AI',
-    org: 'Sololearn', year: '2026',
-    tags: ['Data Analytics','Basics'],
-    id: 'CC-SGABJZOA', type: 'Certification', icon: '🌐',
-  },
-  {
-    title: 'SQL Intermediate',
-    org: 'Sololearn', year: '2026',
-    tags: ['SQL','Intermediate'],
-    id: 'CC-IWSFMX7P', type: 'Certification', icon: '🌐',
-  },
-  {
-    title: 'Introduction to Programming Using JavaScript',
-    org: 'Sololearn', year: '2026',
-    tags: ['JavaScript','Basics'],
-    id: 'CC-9HQFF8FL', type: 'Certification', icon: '🌐',
-  },
-  {
-    title: 'Introduction to Programming SQL',
-    org: 'Sololearn', year: '2026',
-    tags: ['SQL','Basics'],
-    id: 'CC-YWAEU9LZ', type: 'Certification', icon: '🌐',
+    title: 'Introduction to Programming Using HTML',
+    org: 'Sololearn', year: '2025',
+    tags: ['HTML','Basics'],
+    id: 'CC-AD90KRTR', type: 'Certification', icon: '🌐',
   },
   {
     title: 'Introduction to Programming Using CSS',
@@ -33,12 +15,32 @@ const achievements = [
     id: 'CC-A8PZNKIY', type: 'Certification', icon: '🌐',
     
   },
-  {
-    title: 'Introduction to Programming Using HTML',
-    org: 'Sololearn', year: '2025',
-    tags: ['HTML','Basics'],
-    id: 'CC-AD90KRTR', type: 'Certification', icon: '🌐',
+   {
+    title: 'Introduction to Programming Using JavaScript',
+    org: 'Sololearn', year: '2026',
+    tags: ['JavaScript','Basics'],
+    id: 'CC-9HQFF8FL', type: 'Certification', icon: '🌐',
   },
+
+  {
+    title: 'Introduction to Programming SQL',
+    org: 'Sololearn', year: '2026',
+    tags: ['SQL','Basics'],
+    id: 'CC-YWAEU9LZ', type: 'Certification', icon: '🌐',
+  },
+  {
+    title: 'SQL Intermediate',
+    org: 'Sololearn', year: '2026',
+    tags: ['SQL','Intermediate'],
+    id: 'CC-IWSFMX7P', type: 'Certification', icon: '🌐',
+  },
+  {
+    title: 'Data Analytics with AI',
+    org: 'Sololearn', year: '2026',
+    tags: ['Data Analytics','Basics'],
+    id: 'CC-SGABJZOA', type: 'Certification', icon: '🌐',
+  },
+  
 ]
 
 const Achievements = () => {
