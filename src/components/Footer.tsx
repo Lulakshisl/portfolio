@@ -65,6 +65,7 @@ const Footer = () => {
       {/* Right - Small Minimal Icons */}
       <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
         {links.map(link => (
+
           <a
             key={link.label}
             href={link.href}
@@ -84,6 +85,7 @@ const Footer = () => {
           >
             {link.icon}
           </a>
+          
         ))}
       </div>
 
