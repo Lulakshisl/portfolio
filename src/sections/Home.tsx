@@ -86,7 +86,7 @@ const Home = () => {
   const outlineText = dark ? '#a78bfa'                 : '#7c3aed'
   const outlineBg   = dark ? 'rgba(139,92,246,0.05)'  : 'rgba(124,58,237,0.06)'
   const socialBorder= dark ? 'rgba(71,85,105,0.3)'    : 'rgba(124,58,237,0.2)'
-  const _cardBg      = dark ? 'rgba(14,14,32,0.9)'      : 'rgba(255,255,255,0.9)'
+  {/*const cardBg = dark ? 'rgba(14,14,32,0.9)' : 'rgba(255,255,255,0.9)'*/}
   const cardBorder  = dark ? 'rgba(139,92,246,0.3)'    : 'rgba(124,58,237,0.25)'
 
   return (
