@@ -14,7 +14,6 @@ const Navbar = () => {
     window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
   }, [])
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY + 120
