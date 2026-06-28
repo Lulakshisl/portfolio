@@ -40,7 +40,6 @@ const LushiLogo = ({ size = 40 }: { size?: number }) => (
     />
   </svg>
 )
-
 export default LushiLogo
 
 
