@@ -8,7 +8,6 @@ const LoadingScreen = ({ onDone }: { onDone: () => void }) => {
   const nameLetters = ['L', 'U', 'S', 'H', 'I'];
 
   // Staggered letter reveal
-  
   useEffect(() => {
     if (letterIndex < nameLetters.length) {
       const timer = setTimeout(() => {
