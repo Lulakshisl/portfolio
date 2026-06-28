@@ -205,5 +205,4 @@ const Achievements = () => {
     </div>
   )
 }
-
 export default Achievements
