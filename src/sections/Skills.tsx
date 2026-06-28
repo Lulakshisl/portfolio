@@ -215,7 +215,7 @@ const Skills = () => {
   const orb1            = dark ? 'rgba(139,92,246,0.06)'      : 'rgba(124,58,237,0.05)'
   const orb2            = dark ? 'rgba(99,102,241,0.05)'      : 'rgba(99,102,241,0.04)'
   const dividerColor    = dark ? 'rgba(139,92,246,0.25)'      : 'rgba(124,58,237,0.15)'
-  const _hintBg          = dark ? 'rgba(139,92,246,0.08)'      : 'rgba(124,58,237,0.06)'
+  {/*const _hintBg          = dark ? 'rgba(139,92,246,0.08)'      : 'rgba(124,58,237,0.06)'*/}
 
   // stats for header
   const totalSkills = categories.reduce((a, c) => a + c.skills.length, 0)
