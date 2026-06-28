@@ -3,6 +3,7 @@ const FloatingWhatsApp = () => {
     window.open('https://wa.me/94750184902', '_blank')
     
   }
+  
   return (
     <>
       <div
