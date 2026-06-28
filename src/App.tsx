@@ -66,6 +66,5 @@ function App() {
     </ThemeContext.Provider>
   )
 }
-
 export default App
 
