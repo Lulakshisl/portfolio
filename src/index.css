@@ -21,4 +21,49 @@ html, body {
   width: 100%;
 }
 
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .nav-desktop-items { display: none !important; }
+  .nav-cv-btn { display: none !important; }
+  .nav-hamburger { display: flex !important; }
+
+  .home-wrapper {
+    flex-direction: column !important;
+    padding: 100px 6% 60px !important;
+    gap: 48px !important;
+  }
+  .home-photo-wrapper {
+    width: 240px !important;
+    height: 240px !important;
+    align-self: center !important;
+    margin-right: 0 !important;
+  }
+
+  .about-wrapper {
+    flex-direction: column !important;
+    gap: 40px !important;
+  }
+  .about-image-wrapper {
+    width: 100% !important;
+    height: 280px !important;
+  }
+
+  .skills-wrapper { flex-direction: column !important; }
+  .skills-sidebar {
+    width: 100% !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .projects-grid { grid-template-columns: 1fr !important; }
+  .achievements-grid { grid-template-columns: 1fr !important; }
+  .contact-grid { grid-template-columns: 1fr !important; }
+  .journey-card { width: 85% !important; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 36px !important; }
+  h2 { font-size: 26px !important; }
+}
 
