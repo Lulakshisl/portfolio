@@ -1,17 +1,12 @@
 import { useState, useContext } from 'react'
 import { ThemeContext } from '../App'
+import emailjs from '@emailjs/browser'
 
-// ---------- Icon Component ----------
 const Icon = ({ type }: { type: string }) => {
   const props = {
-    width: 24,
-    height: 24,
-    viewBox: '0 0 24 24',
-    fill: 'none',
-    stroke: 'currentColor',
-    strokeWidth: 2,
-    strokeLinecap: 'round' as const,
-    strokeLinejoin: 'round' as const,
+    width: 24, height: 24, viewBox: '0 0 24 24',
+    fill: 'none', stroke: 'currentColor', strokeWidth: 2,
+    strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const,
   }
   switch (type) {
     case 'mail':
@@ -50,23 +45,12 @@ const Icon = ({ type }: { type: string }) => {
   }
 }
 
-// ---------- ContactRow Component ----------
 const ContactRow = ({
-  c,
-  dark,
-  cardBg,
-  cardBorder,
-  muted,
-  isFirst,
-  isLast,
+  c, dark, cardBg, cardBorder, muted, isFirst, isLast,
 }: {
   c: { icon: string; label: string; value: string; href: string }
-  dark: boolean
-  cardBg: string
-  cardBorder: string
-  muted: string
-  isFirst: boolean
-  isLast: boolean
+  dark: boolean; cardBg: string; cardBorder: string
+  muted: string; isFirst: boolean; isLast: boolean
 }) => {
   const lineColor = dark ? 'rgba(139,92,246,0.35)' : 'rgba(124,58,237,0.25)'
   const handleClick = () => {
@@ -77,32 +61,21 @@ const ContactRow = ({
       onClick={handleClick}
       className="contact-row"
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '20px',
-        background: cardBg,
-        border: `1px solid ${cardBorder}`,
+        display: 'flex', alignItems: 'center', gap: '20px',
+        background: cardBg, border: `1px solid ${cardBorder}`,
         borderTop: isFirst ? 'none' : `1px solid ${lineColor}`,
         borderBottom: isLast ? `1px solid ${lineColor}` : 'none',
-        borderRadius: '16px',
-        padding: '18px 24px',
-        margin: 0, // ← margin 0 කර ඇත
-        cursor: 'pointer',
-        transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
+        borderRadius: '16px', padding: '18px 24px', margin: 0,
+        cursor: 'pointer', transition: 'all 0.25s cubic-bezier(.4,0,.2,1)',
       }}
     >
       <div
         className="contact-icon-box"
         style={{
-          width: '52px',
-          height: '52px',
-          borderRadius: '13px',
-          flexShrink: 0,
+          width: '52px', height: '52px', borderRadius: '13px', flexShrink: 0,
           background: dark ? 'rgba(139,92,246,0.12)' : 'rgba(124,58,237,0.08)',
           border: `1px solid ${dark ? 'rgba(139,92,246,0.2)' : 'rgba(124,58,237,0.2)'}`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: dark ? 'rgba(167,139,250,0.5)' : 'rgba(124,58,237,0.4)',
           transition: 'all 0.25s ease',
         }}
@@ -112,12 +85,8 @@ const ContactRow = ({
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
-            color: muted,
-            fontSize: '11px',
-            fontWeight: '700',
-            letterSpacing: '1.5px',
-            textTransform: 'uppercase',
-            marginBottom: '4px',
+            color: muted, fontSize: '11px', fontWeight: '700',
+            letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '4px',
           }}
         >
           {c.label}
@@ -125,12 +94,8 @@ const ContactRow = ({
         <div
           className="contact-value"
           style={{
-            color: dark ? '#e2e8f0' : '#1e1b4b',
-            fontSize: '14px',
-            fontWeight: '600',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
+            color: dark ? '#e2e8f0' : '#1e1b4b', fontSize: '14px', fontWeight: '600',
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             transition: 'color 0.25s',
           }}
         >
@@ -141,18 +106,17 @@ const ContactRow = ({
   )
 }
 
-// ---------- Main Contact Component ----------
 const Contact = () => {
   const { dark } = useContext(ThemeContext)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
   const [nameErr, setNameErr] = useState('')
   const [emailErr, setEmailErr] = useState('')
 
-  // ---------- send handler ----------
-  const handleSend = () => {
+  const handleSend = async () => {
     let nErr = ''
     let eErr = ''
     if (!name.trim()) {
@@ -169,61 +133,43 @@ const Contact = () => {
     setEmailErr(eErr)
     if (nErr || eErr || !message.trim()) return
 
-    const text = `Hi Lulakshi! I'm ${name} (${email}). ${message}`
-    window.open(
-      `https://wa.me/94750184902?text=${encodeURIComponent(text)}`,
-      '_blank'
-    )
-    setSent(true)
-    setTimeout(() => {
-      setSent(false)
-      setName('')
-      setEmail('')
-      setMessage('')
-      setNameErr('')
-      setEmailErr('')
-    }, 3000)
+    setSending(true)
+    try {
+      await emailjs.send(
+        'service_i1oarnb',
+        'template_43feyrq',
+        { from_name: name, from_email: email, message },
+        'a1GZJEDW7S2O2BKSf'
+      )
+      setSent(true)
+      setTimeout(() => {
+        setSent(false)
+        setName('')
+        setEmail('')
+        setMessage('')
+        setNameErr('')
+        setEmailErr('')
+      }, 3000)
+    } catch (err) {
+      console.error('Email failed:', err)
+      const text = `Hi Lulakshi! I'm ${name} (${email}). ${message}`
+      window.open(`https://wa.me/94750184902?text=${encodeURIComponent(text)}`, '_blank')
+    } finally {
+      setSending(false)
+    }
   }
 
-  // ---------- contact data ----------
   const contacts = [
-    {
-      icon: 'whatsapp',
-      label: 'WhatsApp',
-      value: '+94 75 018 4902',
-      href: 'https://wa.me/94750184902',
-    },
-    {
-      icon: 'mail',
-      label: 'Email',
-      value: 'lulakshimadubashini@gmail.com',
-      href: 'mailto:lulakshimadubashini@gmail.com',
-    },
-    {
-      icon: 'phone',
-      label: 'Phone',
-      value: '+94 75 018 4902',
-      href: 'tel:+94750184902',
-    },
-    {
-      icon: 'linkedin',
-      label: 'LinkedIn',
-      value: 'lulakshi-madubashini',
-      href: 'https://www.linkedin.com/in/lulakshi-madubashini-3177aa2a4/?skipRedirect=true',
-    },
-    {
-      icon: 'github',
-      label: 'GitHub',
-      value: '@Lulakshisl',
-      href: 'https://github.com/Lulakshisl',
-    },
+    { icon: 'whatsapp', label: 'WhatsApp', value: '+94 75 018 4902', href: 'https://wa.me/94750184902' },
+    { icon: 'mail',     label: 'Email',    value: 'lulakshimadubashini@gmail.com', href: 'mailto:lulakshimadubashini@gmail.com' },
+    { icon: 'phone',    label: 'Phone',    value: '+94 75 018 4902', href: 'tel:+94750184902' },
+    { icon: 'linkedin', label: 'LinkedIn', value: 'lulakshi-madubashini', href: 'https://www.linkedin.com/in/lulakshi-madubashini-3177aa2a4/?skipRedirect=true' },
+    { icon: 'github',   label: 'GitHub',   value: '@Lulakshisl', href: 'https://github.com/Lulakshisl' },
   ]
 
-  // ---------- theme based colors ----------
-  const bg =
-    dark
-      ? 'linear-gradient(180deg,#0a0a18 0%,#080810 100%)'
-      : 'linear-gradient(180deg,#ede9fe 0%,#f8f7ff 100%)'
+  const bg = dark
+    ? 'linear-gradient(180deg,#0a0a18 0%,#080810 100%)'
+    : 'linear-gradient(180deg,#ede9fe 0%,#f8f7ff 100%)'
   const muted = dark ? '#475569' : '#7c6fa5'
   const accentText = dark ? '#a78bfa' : '#7c3aed'
   const badgeBg = dark ? 'rgba(139,92,246,0.1)' : 'rgba(124,58,237,0.08)'
@@ -239,353 +185,102 @@ const Contact = () => {
   const orb2 = dark ? 'rgba(99,102,241,0.05)' : 'rgba(99,102,241,0.04)'
 
   const fieldStyle = (hasErr: boolean): React.CSSProperties => ({
-    width: '100%',
-    background: 'transparent',
-    border: 'none',
+    width: '100%', background: 'transparent', border: 'none',
     borderBottom: `1.5px solid ${hasErr ? '#f87171' : lineNormal}`,
-    borderRadius: '0',
-    padding: '10px 0',
-    color: inputText,
-    fontSize: '15px',
-    outline: 'none',
-    boxSizing: 'border-box',
-    fontFamily: 'inherit',
+    borderRadius: '0', padding: '10px 0', color: inputText, fontSize: '15px',
+    outline: 'none', boxSizing: 'border-box', fontFamily: 'inherit',
     transition: 'border-color 0.2s',
   })
 
   const ErrLine = ({ msg }: { msg: string }) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '7px' }}>
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#f87171"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f87171" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
         <line x1="12" y1="8" x2="12" y2="12" />
         <line x1="12" y1="16" x2="12.01" y2="16" />
       </svg>
-      <span style={{ color: '#f87171', fontSize: '11px', fontWeight: '600' }}>
-        {msg}
-      </span>
+      <span style={{ color: '#f87171', fontSize: '11px', fontWeight: '600' }}>{msg}</span>
     </div>
   )
 
-  // ---------- JSX ----------
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        padding: '100px 6%',
-        background: bg,
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* background orbs */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '8%',
-          right: '4%',
-          width: '380px',
-          height: '380px',
-          borderRadius: '50%',
-          background: orb1,
-          filter: 'blur(80px)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '10%',
-          left: '2%',
-          width: '280px',
-          height: '280px',
-          borderRadius: '50%',
-          background: orb2,
-          filter: 'blur(60px)',
-          pointerEvents: 'none',
-        }}
-      />
+    <div style={{ minHeight: '100vh', padding: '100px 6%', background: bg, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: '8%', right: '4%', width: '380px', height: '380px', borderRadius: '50%', background: orb1, filter: 'blur(80px)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '10%', left: '2%', width: '280px', height: '280px', borderRadius: '50%', background: orb2, filter: 'blur(60px)', pointerEvents: 'none' }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative' }}>
-        {/* Header */}
         <div style={{ marginBottom: '64px' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: badgeBg,
-              border: `1px solid ${badgeBorder}`,
-              borderRadius: '50px',
-              padding: '6px 16px',
-              marginBottom: '20px',
-            }}
-          >
-            <span
-              style={{
-                width: '7px',
-                height: '7px',
-                borderRadius: '50%',
-                background: '#8b5cf6',
-                display: 'inline-block',
-                animation: 'pulse-dot 2s ease-in-out infinite',
-              }}
-            />
-            <span
-              style={{
-                color: accentText,
-                fontSize: '11px',
-                fontWeight: '700',
-                letterSpacing: '2.5px',
-                textTransform: 'uppercase',
-              }}
-            >
-              Contact
-            </span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: badgeBg, border: `1px solid ${badgeBorder}`, borderRadius: '50px', padding: '6px 16px', marginBottom: '20px' }}>
+            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#8b5cf6', display: 'inline-block', animation: 'pulse-dot 2s ease-in-out infinite' }} />
+            <span style={{ color: accentText, fontSize: '11px', fontWeight: '700', letterSpacing: '2.5px', textTransform: 'uppercase' }}>Contact</span>
           </div>
-          <h2
-            style={{
-              fontSize: 'clamp(34px,5vw,52px)',
-              fontWeight: '900',
-              letterSpacing: '-2px',
-              lineHeight: 1.05,
-              margin: '0 0 20px 0',
-            }}
-          >
-            <span style={{ color: dark ? '#ffffff' : '#1e1b4b' }}>
-              {"Let's build "}
-            </span>
-            <span
-              style={{
-                background: 'linear-gradient(135deg,#8b5cf6,#a78bfa,#6366f1)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              something great
-            </span>
-            <span style={{ color: dark ? '#ffffff' : '#1e1b4b' }}>
-              {"."}
-            </span>
+          <h2 style={{ fontSize: 'clamp(34px,5vw,52px)', fontWeight: '900', letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 20px 0' }}>
+            <span style={{ color: dark ? '#ffffff' : '#1e1b4b' }}>{"Let's build "}</span>
+            <span style={{ background: 'linear-gradient(135deg,#8b5cf6,#a78bfa,#6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>something great</span>
+            <span style={{ color: dark ? '#ffffff' : '#1e1b4b' }}>{"."}</span>
           </h2>
-          <p
-            style={{
-              color: muted,
-              fontSize: '16px',
-              maxWidth: '480px',
-              lineHeight: 1.75,
-              margin: 0,
-            }}
-          >
-            Open to internships, freelance work, and collaborations. I respond
-            within 24 hours — let's turn your idea into reality.
+          <p style={{ color: muted, fontSize: '16px', maxWidth: '480px', lineHeight: 1.75, margin: 0 }}>
+            Open to internships, freelance work, and collaborations. I respond within 24 hours — let's turn your idea into reality.
           </p>
         </div>
 
-        {/* Two columns – grid with stretch */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1.1fr',
-            gap: '40px',
-            alignItems: 'stretch', // ← මෙය එකතු කරන්න -last update 
-          }}
-        >
-          {/* LEFT column – contact cards */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-evenly', // ← උඩ/පහළ balance කරන්න -  last update
-              height: '100%', // ← form එකේ උසට stretch වෙනවා -  last update
-            }}
-          >
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: '40px', alignItems: 'stretch' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', height: '100%' }}>
             {contacts.map((c, i) => (
-              <ContactRow
-                key={c.label}
-                c={c}
-                dark={dark}
-                cardBg={cardBg}
-                cardBorder={cardBorder}
-                muted={muted}
-                isFirst={i === 0}
-                isLast={i === contacts.length - 1}
-              />
+              <ContactRow key={c.label} c={c} dark={dark} cardBg={cardBg} cardBorder={cardBorder} muted={muted} isFirst={i === 0} isLast={i === contacts.length - 1} />
             ))}
           </div>
 
-          {/* RIGHT column – form */}
-          <div
-            style={{
-              background: formBg,
-              border: `1px solid ${formBorder}`,
-              borderRadius: '24px',
-              padding: '40px',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              boxShadow: dark
-                ? '0 24px 60px rgba(139,92,246,0.1)'
-                : '0 24px 60px rgba(124,58,237,0.08)',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                top: '-40px',
-                right: '-40px',
-                width: '160px',
-                height: '160px',
-                borderRadius: '50%',
-                background: dark
-                  ? 'rgba(139,92,246,0.08)'
-                  : 'rgba(124,58,237,0.06)',
-                filter: 'blur(40px)',
-                pointerEvents: 'none',
-              }}
-            />
+          <div style={{ background: formBg, border: `1px solid ${formBorder}`, borderRadius: '24px', padding: '40px', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', boxShadow: dark ? '0 24px 60px rgba(139,92,246,0.1)' : '0 24px 60px rgba(124,58,237,0.08)', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '160px', height: '160px', borderRadius: '50%', background: dark ? 'rgba(139,92,246,0.08)' : 'rgba(124,58,237,0.06)', filter: 'blur(40px)', pointerEvents: 'none' }} />
 
-            {/* Name */}
             <div style={{ marginBottom: '28px' }}>
-              <label
-                style={{
-                  color: labelText,
-                  fontSize: '11px',
-                  fontWeight: '700',
-                  letterSpacing: '2px',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '40px',
-                }}
-              >
-                Name
-              </label>
-              <input
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value)
-                  if (nameErr) setNameErr('')
-                }}
-                style={fieldStyle(!!nameErr)}
-                className="contact-input"
-              />
+              <label style={{ color: labelText, fontSize: '11px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px' }}>Name</label>
+              <input value={name} onChange={(e) => { setName(e.target.value); if (nameErr) setNameErr('') }} style={fieldStyle(!!nameErr)} className="contact-input" />
               {nameErr && <ErrLine msg={nameErr} />}
             </div>
 
-            {/* Email */}
             <div style={{ marginBottom: '28px' }}>
-              <label
-                style={{
-                  color: labelText,
-                  fontSize: '11px',
-                  fontWeight: '700',
-                  letterSpacing: '2px',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '10px',
-                }}
-              >
-                Email
-              </label>
-              <input
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value)
-                  if (emailErr) setEmailErr('')
-                }}
-                style={fieldStyle(!!emailErr)}
-                className="contact-input"
-              />
+              <label style={{ color: labelText, fontSize: '11px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px' }}>Email</label>
+              <input value={email} onChange={(e) => { setEmail(e.target.value); if (emailErr) setEmailErr('') }} style={fieldStyle(!!emailErr)} className="contact-input" />
               {emailErr && <ErrLine msg={emailErr} />}
             </div>
 
-            {/* Message */}
             <div style={{ marginBottom: '36px' }}>
-              <label
-                style={{
-                  color: labelText,
-                  fontSize: '11px',
-                  fontWeight: '700',
-                  letterSpacing: '2px',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '10px',
-                }}
-              >
-                Message
-              </label>
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                rows={4}
-                style={{ ...fieldStyle(false), resize: 'none' }}
-                className="contact-input"
-              />
+              <label style={{ color: labelText, fontSize: '11px', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', display: 'block', marginBottom: '10px' }}>Message</label>
+              <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={4} style={{ ...fieldStyle(false), resize: 'none' }} className="contact-input" />
             </div>
 
-            {/* Send button */}
             <button
               onClick={handleSend}
+              disabled={sending}
               className="send-btn"
               style={{
                 width: '100%',
-                background: sent
-                  ? 'linear-gradient(135deg,#10b981,#059669)'
-                  : 'linear-gradient(135deg,#8b5cf6,#7c3aed,#6366f1)',
-                color: '#ffffff',
-                padding: '16px',
-                borderRadius: '50px',
-                fontWeight: '800',
-                fontSize: '15px',
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: sent
-                  ? '0 8px 24px rgba(16,185,129,0.45)'
-                  : '0 8px 32px rgba(124,58,237,0.6)',
-                transition: 'all 0.3s ease',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '10px',
-                letterSpacing: '0.3px',
+                background: sent ? 'linear-gradient(135deg,#10b981,#059669)' : 'linear-gradient(135deg,#8b5cf6,#7c3aed,#6366f1)',
+                color: '#ffffff', padding: '16px', borderRadius: '50px', fontWeight: '800', fontSize: '15px',
+                border: 'none', cursor: sending ? 'not-allowed' : 'pointer',
+                opacity: sending ? 0.7 : 1,
+                boxShadow: sent ? '0 8px 24px rgba(16,185,129,0.45)' : '0 8px 32px rgba(124,58,237,0.6)',
+                transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', letterSpacing: '0.3px',
               }}
             >
               {sent ? (
                 <>
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#ffffff"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  <span style={{ color: '#ffffff', fontWeight: '800' }}>
-                    Sent!
-                  </span>
+                  <span style={{ color: '#ffffff', fontWeight: '800' }}>Sent!</span>
                 </>
+              ) : sending ? (
+                <span style={{ color: '#ffffff', fontWeight: '800' }}>Sending...</span>
               ) : (
                 <>
-                  <svg viewBox="0 0 32 32" width="18" height="18" fill="#ffffff">
-                    <path d="M16.003 2C8.28 2 2 8.28 2 16.003c0 2.47.67 4.785 1.84 6.77L2 30l7.43-1.802A13.94 13.94 0 0 0 16.003 30C23.72 30 30 23.72 30 16.003 30 8.28 23.72 2 16.003 2zm0 25.4a11.33 11.33 0 0 1-5.78-1.583l-.414-.246-4.41 1.07 1.1-4.296-.27-.44A11.37 11.37 0 0 1 4.6 16.003c0-6.29 5.114-11.403 11.403-11.403S27.4 9.713 27.4 16.003 22.29 27.4 16.003 27.4zm6.27-8.536c-.344-.172-2.034-1.003-2.348-1.118-.314-.115-.543-.172-.772.172-.229.344-.886 1.118-1.086 1.347-.2.23-.4.258-.743.086-.344-.172-1.452-.535-2.766-1.707-1.022-.912-1.712-2.038-1.912-2.382-.2-.344-.021-.53.15-.702.155-.154.344-.4.516-.601.172-.2.23-.344.344-.573.115-.229.058-.43-.029-.601-.086-.172-.772-1.862-1.057-2.549-.279-.668-.562-.578-.772-.589l-.657-.011c-.229 0-.6.086-.914.43-.314.343-1.2 1.174-1.2 2.863 0 1.69 1.229 3.322 1.4 3.551.172.229 2.42 3.694 5.863 5.18.82.354 1.46.565 1.958.723.823.261 1.572.224 2.164.136.66-.099 2.034-.832 2.32-1.635.287-.803.287-1.49.2-1.635-.084-.144-.313-.23-.657-.4z" />
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
                   </svg>
-                  <span style={{ color: '#ffffff', fontWeight: '800' }}>
-                    Send via WhatsApp
-                  </span>
+                  <span style={{ color: '#ffffff', fontWeight: '800' }}>Send Message</span>
                 </>
               )}
             </button>
@@ -593,7 +288,6 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Global styles */}
       <style>{`
         @keyframes pulse-dot {
           0%, 100% { opacity: 1; transform: scale(1); }
@@ -616,12 +310,12 @@ const Contact = () => {
         .contact-input:focus {
           border-bottom-color: #8b5cf6 !important;
         }
-        .send-btn:hover {
+        .send-btn:hover:not(:disabled) {
           background: linear-gradient(135deg,#7c3aed,#6d28d9,#4f46e5) !important;
           transform: translateY(-2px);
           box-shadow: 0 16px 44px rgba(124,58,237,0.7) !important;
         }
-        .send-btn:active {
+        .send-btn:active:not(:disabled) {
           transform: translateY(0);
         }
       `}</style>
