@@ -5,15 +5,17 @@ import LushiLogo from './LushiLogo'
 const items = ['Home', 'About', 'Skills', 'Projects', 'Achievements', 'Contact']
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false)
-  const [active, setActive]     = useState('Home')
-  const { dark, toggle }        = useContext(ThemeContext)
+  const [scrolled,  setScrolled]  = useState(false)
+  const [active,    setActive]    = useState('Home')
+  const [menuOpen,  setMenuOpen]  = useState(false)
+  const { dark, toggle } = useContext(ThemeContext)
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
   }, [])
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY + 120
@@ -31,12 +33,14 @@ const Navbar = () => {
 
   const handleNavClick = (item: string) => {
     setActive(item)
+    setMenuOpen(false)
     const el = document.getElementById(item.toLowerCase())
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
   const textColor   = dark ? '#94a3b8' : '#6b5b95'
-  const activeColor = dark ? '#ffffff'  : '#1e1b4b'
+  const activeColor = dark ? '#ffffff' : '#1e1b4b'
+  const menuBg      = dark ? 'rgba(7,7,15,0.98)' : 'rgba(248,247,255,0.98)'
 
   return (
     <>
@@ -59,10 +63,7 @@ const Navbar = () => {
           onClick={() => handleNavClick('Home')}
           style={{ display:'flex', alignItems:'center', gap:'10px', cursor:'pointer' }}
         >
-          <div
-            className="nav-logo"
-            style={{ filter:'drop-shadow(0 0 8px rgba(139,92,246,0.6))', transition:'filter 0.3s ease' }}
-          >
+          <div className="nav-logo" style={{ filter:'drop-shadow(0 0 8px rgba(139,92,246,0.6))', transition:'filter 0.3s ease' }}>
             <LushiLogo size={36}/>
           </div>
           <span style={{ fontWeight:900, fontSize:'16px', letterSpacing:'2px', color: dark ? 'white' : '#1e1b4b' }}>
@@ -70,8 +71,8 @@ const Navbar = () => {
           </span>
         </div>
 
-        {/* Nav items */}
-        <div style={{ display:'flex', gap:'24px', alignItems:'center' }}>
+        {/* Desktop nav items */}
+        <div className="nav-desktop-items" style={{ display:'flex', gap:'24px', alignItems:'center' }}>
           {items.map(item => {
             const isActive = active === item
             return (
@@ -92,14 +93,11 @@ const Navbar = () => {
               >
                 {item}
                 <span style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: '50%',
+                  position: 'absolute', bottom: 0, left: '50%',
                   transform: 'translateX(-50%)',
                   display: 'block',
                   width: isActive ? '60%' : '0%',
-                  height: '2px',
-                  borderRadius: '99px',
+                  height: '2px', borderRadius: '99px',
                   background: 'linear-gradient(90deg,#8b5cf6,#a78bfa)',
                   boxShadow: isActive ? '0 0 8px rgba(139,92,246,0.8)' : 'none',
                   transition: 'width 0.3s cubic-bezier(.4,0,.2,1)',
@@ -112,15 +110,15 @@ const Navbar = () => {
         {/* Right side */}
         <div style={{ display:'flex', alignItems:'center', gap:'10px' }}>
 
-          {/* CV button */}
+          {/* CV button — hidden on mobile */}
           <div
+            className="nav-cv-btn"
             onClick={() => {
               const link = document.createElement('a')
               link.href = "/lulakshi's cv .pdf"
               link.download = 'Lulakshi_CV.pdf'
               link.click()
             }}
-            className="cv-btn"
             style={{
               display: 'flex', alignItems: 'center', gap: '7px',
               background: 'linear-gradient(135deg,#8b5cf6,#6366f1)',
@@ -170,22 +168,104 @@ const Navbar = () => {
               </svg>
             )}
           </button>
+
+          {/* Hamburger — shown only on mobile */}
+          <div
+            className="nav-hamburger"
+            onClick={() => setMenuOpen(m => !m)}
+            style={{
+              display: 'none',
+              flexDirection: 'column' as const,
+              gap: '5px', cursor: 'pointer', padding: '4px',
+            }}
+          >
+            <span style={{
+              width: '22px', height: '2px', borderRadius: '2px',
+              background: dark ? 'white' : '#1e1b4b',
+              transition: 'all 0.3s',
+              transform: menuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none',
+              display: 'block',
+            }}/>
+            <span style={{
+              width: '22px', height: '2px', borderRadius: '2px',
+              background: dark ? 'white' : '#1e1b4b',
+              transition: 'all 0.3s',
+              opacity: menuOpen ? 0 : 1,
+              display: 'block',
+            }}/>
+            <span style={{
+              width: '22px', height: '2px', borderRadius: '2px',
+              background: dark ? 'white' : '#1e1b4b',
+              transition: 'all 0.3s',
+              transform: menuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none',
+              display: 'block',
+            }}/>
+          </div>
         </div>
       </nav>
 
+      {/* Mobile dropdown menu */}
+      {menuOpen && (
+        <div style={{
+          position: 'fixed', top: '60px', left: 0, right: 0, zIndex: 99,
+          background: menuBg,
+          backdropFilter: 'blur(16px)',
+          borderBottom: `1px solid ${dark ? 'rgba(139,92,246,0.15)' : 'rgba(124,58,237,0.12)'}`,
+          padding: '16px 6%',
+        }}>
+          {items.map(item => (
+            <div
+              key={item}
+              onClick={() => handleNavClick(item)}
+              style={{
+                color: active===item ? '#a78bfa' : textColor,
+                fontWeight: active===item ? 700 : 500,
+                fontSize: '16px', cursor: 'pointer',
+                padding: '14px 0',
+                borderBottom: `1px solid ${dark ? 'rgba(139,92,246,0.08)' : 'rgba(124,58,237,0.06)'}`,
+                transition: 'color 0.2s',
+              }}
+            >
+              {item}
+            </div>
+          ))}
+
+          {/* CV button inside mobile menu */}
+          <div
+            onClick={() => {
+              const link = document.createElement('a')
+              link.href = "/lulakshi's cv .pdf"
+              link.download = 'Lulakshi_CV.pdf'
+              link.click()
+              setMenuOpen(false)
+            }}
+            style={{
+              marginTop: '16px',
+              background: 'linear-gradient(135deg,#8b5cf6,#6366f1)',
+              color: 'white', padding: '14px',
+              borderRadius: '12px', textAlign: 'center' as const,
+              fontWeight: '700', fontSize: '15px', cursor: 'pointer',
+            }}
+          >
+            Download CV
+          </div>
+        </div>
+      )}
+
       <style>{`
-        .nav-item:hover {
-          color: ${dark ? '#ffffff' : '#1e1b4b'} !important;
-        }
-        .nav-item:hover span {
-          width: 40% !important;
-        }
-        .cv-btn:hover {
+        .nav-item:hover { color: ${dark ? '#ffffff' : '#1e1b4b'} !important; }
+        .nav-item:hover span { width: 40% !important; }
+        .nav-cv-btn:hover {
           transform: translateY(-1px);
           box-shadow: 0 8px 20px rgba(139,92,246,0.55) !important;
         }
         .nav-logo:hover {
           filter: drop-shadow(0 0 14px rgba(139,92,246,0.9)) !important;
+        }
+        @media (max-width: 768px) {
+          .nav-desktop-items { display: none !important; }
+          .nav-cv-btn { display: none !important; }
+          .nav-hamburger { display: flex !important; }
         }
       `}</style>
     </>
@@ -193,4 +273,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-
