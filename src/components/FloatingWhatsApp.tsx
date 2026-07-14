@@ -34,7 +34,7 @@ const FloatingWhatsApp = () => {
 
       <style>{`
         .wa-float {
-          animation: wa-pulse 0.5s ease-in-out infinite;
+          animation: wa-pulse 2.5s ease-in-out infinite;
         }
         @keyframes wa-pulse {
           0%, 100% {
