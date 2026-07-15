@@ -6,42 +6,42 @@ const projects = [
     title: 'Coconut Plantation System',
     desc: 'Relaxed cafe workspace platform — book a table, browse the menu, place orders and manage bookings in one cohesive experience.',
     tags: ['React','Laravel','MongoDB'],
-    type: 'Web', demo: '#', code: 'https://github.com/Lulakshisl',
+    type: 'Web', demo: '', code: 'https://github.com/Lulakshisl/Coconut_Plantation_System-',
     color: '#8b5cf6', src: '/coconut.png'
   },
   {
     title: 'Coffee Shop App',
     desc: 'Coffee ordering platform with menu browsing, inventory management and customer order tracking.',
     tags: ['MongoDB','Express','React','Node.js'],
-    type: 'Web', demo: '#', code: 'https://github.com/Lulakshisl',
+    type: 'Web', demo: '', code: 'https://github.com/Lulakshisl/CoffeeShop-LUSH',
     color: '#6366f1', src: '/coffee.png'
   },
   {
     title: 'FinPay Wallet App',
     desc: 'Mobile wallet application with secure transactions, balance management and transfer history.',
     tags: ['Flutter','Dart','Firebase','Google Maps API'],
-    type: 'Mobile', demo: '#', code: 'https://github.com/Lulakshisl',
+    type: 'Mobile', demo: '', code: 'https://github.com/Lulakshisl/FinPay-Wallet-mobile-app',
     color: '#a78bfa', src: '/FinPay Wallet mobile_app.png'
   },
   {
     title: 'Portfolio Project',
     desc: 'A modern portfolio website built with React, Vite & TypeScript, featuring smooth animations, responsive design, and a dark mode toggle.',
     tags: ['React','TypeScript','Vite','Tailwind'],
-    type: 'Enterprise', demo: '#', code: 'https://github.com/Lulakshisl',
+    type: 'Enterprise', demo: 'https://portfolio-one-blue-65.vercel.app/', code: 'https://github.com/Lulakshisl/portfolio',
     color: '#7c3aed', src: '/portfolio.png'
   },
   {
     title: 'RidePark App',
     desc: 'Smart parking application with slot booking, location tracking and user management features.',
     tags: ['Kotlin','Java'],
-    type: 'Mobile', demo: '#', code: 'https://github.com/Lulakshisl',
+    type: 'Mobile', demo: '', code: 'https://github.com/Lulakshisl',
     color: '#8b5cf6', src: '/mobailapp1.png'
   },
   {
     title: 'Medicare',
     desc: 'Healthcare web platform for managing patient records, appointments, and medical data with a clean and accessible interface.',
     tags: ['React','Vite','JavaScript','MongoDB'],
-    type: 'Web', demo: '#', code: 'https://github.com/Lulakshisl',
+    type: 'Web', demo: '', code: 'https://github.com/Lulakshisl/MediCare',
     color: '#8b5cf6', src: '/medicare.png'
   },
 ]
@@ -79,6 +79,8 @@ const TiltCard = ({
     if (ref.current)
       ref.current.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)'
   }
+
+  const hasDemo = p.demo && p.demo.trim() !== ''
 
   return (
     <div
@@ -146,13 +148,15 @@ const TiltCard = ({
           ))}
         </div>
         <div style={{ display:'flex', gap:'10px', borderTop:`1px solid ${cardBorder}`, paddingTop:'14px' }}>
-          <a href={p.demo} target="_blank" rel="noreferrer"
-            onClick={e => e.stopPropagation()}
-            style={{ flex:1, background:'linear-gradient(135deg,#8b5cf6,#6366f1)', color:'white',
-              padding:'8px', borderRadius:'8px', textDecoration:'none',
-              fontSize:'12px', fontWeight:'700', textAlign:'center' }}>
-            Live Demo ↗
-          </a>
+          {hasDemo && (
+            <a href={p.demo} target="_blank" rel="noreferrer"
+              onClick={e => e.stopPropagation()}
+              style={{ flex:1, background:'linear-gradient(135deg,#8b5cf6,#6366f1)', color:'white',
+                padding:'8px', borderRadius:'8px', textDecoration:'none',
+                fontSize:'12px', fontWeight:'700', textAlign:'center' }}>
+              Live Demo ↗
+            </a>
+          )}
           <a href={p.code} target="_blank" rel="noreferrer"
             onClick={e => e.stopPropagation()}
             style={{ flex:1, background:secBtnBg, border:`1px solid ${secBtnBorder}`,
@@ -177,6 +181,7 @@ const Modal = ({
   secBtnBorder: string, cardBorder: string,
 }) => {
   const cardBg = dark ? 'rgba(14,14,28,0.98)' : '#ffffff'
+  const hasDemo = p.demo && p.demo.trim() !== ''
 
   return (
     <div
@@ -255,13 +260,15 @@ const Modal = ({
             ))}
           </div>
           <div style={{ display:'flex', gap:'12px' }}>
-            <a href={p.demo} target="_blank" rel="noreferrer" style={{
-              flex:1, background:'linear-gradient(135deg,#8b5cf6,#6366f1)',
-              color:'white', padding:'12px', borderRadius:'10px',
-              textDecoration:'none', fontSize:'13px', fontWeight:'700', textAlign:'center',
-            }}>
-              Live Demo ↗
-            </a>
+            {hasDemo && (
+              <a href={p.demo} target="_blank" rel="noreferrer" style={{
+                flex:1, background:'linear-gradient(135deg,#8b5cf6,#6366f1)',
+                color:'white', padding:'12px', borderRadius:'10px',
+                textDecoration:'none', fontSize:'13px', fontWeight:'700', textAlign:'center',
+              }}>
+                Live Demo ↗
+              </a>
+            )}
             <a href={p.code} target="_blank" rel="noreferrer" style={{
               flex:1, background:secBtnBg, border:`1px solid ${secBtnBorder}`,
               color:accentText, padding:'12px', borderRadius:'10px',
